@@ -1,4 +1,13 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import Table from '@/components/Table'
+import SearchArea from '@/components/SearchArea'
+import Pagination from '@/components/Pagination'
+import Export from '@/components/Export'
 
-createApp(App).mount('#app')
+export {
+  Table,
+  SearchArea,
+  Pagination,
+  Export
+}
+
+
