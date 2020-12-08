@@ -1,58 +1,46 @@
 <template>
-  <el-button type="primary" plain @click="exportData">导出</el-button>
+   <el-button type="success" size="small" @click="exportData" icon="el-icon-download">导出</el-button>
 </template>
 
 <script>
-  import { exportExcel } from '@/api/base'
-
   export default {
-    props: {
-      name: {
-        type: String,
-        default: 'download'
-      },
-      url: {
-        type: String,
-        default: ''
-      },
-      reqData: {
-        type: Object
+    /**
+     * tableData:导出的数据
+     * tHeader:表头
+     * filterVal:导出数据对应的字段名称
+     * excelName:导出的exel标题
+     */
+    props:{
+      tableData:[Array,Object],
+      tHeader:Array,
+      filterVal:Array,
+      excelName:{
+        type:String,
+        default(){
+          return '导出明细'
+        }
       }
     },
     methods: {
+      /* eslint-disable */
       exportData() {
-        const req = this.reqData
-        const loadingInstance = window.ELEMENT.Loading.service({ fullscreen: false, text: '正在导出', customClass: 'importLoadingClass' })
-        exportExcel(req, this.url).then(response => {
-          loadingInstance.close()
-          const downloadName = this.name + '.xlsx'
-          const blobData = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' })
-          // IE
-          if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-            window.navigator.msSaveOrOpenBlob(blobData, downloadName)
-          } else {
-            const url = window.URL.createObjectURL(blobData)
-            const link = document.createElement('a')
-            link.style.display = 'none'
-            link.href = url
-            link.setAttribute('download', downloadName)
-            document.body.appendChild(link)
-            link.click()
-            link.remove()
-          }
-        }).catch(() => {
-          loadingInstance.close()
+        require.ensure([], () => {
+          const { export_json_to_excel } = require('@/components/utils/Export2Excel');
+          const list = this.tableData.data || this.tableData;  //把data里的tableData存到list
+          const data = this.formatJson(this.filterVal, list);
+          export_json_to_excel(this.tHeader, data, this.excelName);
+          
         })
-      }
+
+      },
+      /* eslint-disable */
+      formatJson(filterVal, jsonData) {
+        return jsonData.map(v => filterVal.map(j => v[j]))
+      },
     }
   }
 </script>
 
 <style lang="sass" scoped>
-@deep: ~'>>>';
 
-
-@{deep} .container {
-
-}
 </style>
