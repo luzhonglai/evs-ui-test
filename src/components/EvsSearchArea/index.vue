@@ -231,6 +231,18 @@ export default defineComponent({
 </script>
 <style lang="less">
 .searchCon {
+  .searchArea {
+    .el-input__inner,
+    .el-input_item_inner,
+    .el-input--mini .el-input_item_inner,
+    .el-input--small .el-input_item_inner {
+      width: 100%;
+      border: none;
+      height: 30px;
+      line-height: 30px;
+    }
+  }
+
   .el-cascader {
     width: 100% !important;
   }
@@ -257,13 +269,13 @@ export default defineComponent({
 }
 </style>
 <style lang="less" scoped>
-:deep(.el-input__inner, .el-input_item_inner, .el-input--mini .el-input_item_inner, .el-input--small
-    .el-input_item_inner) {
-  width: 100%;
-  border: none;
-  height: 30px;
-  line-height: 30px;
-}
+// :deep(.el-input__inner, .el-input_item_inner, .el-input--mini .el-input_item_inner, .el-input--small
+//     .el-input_item_inner) {
+//   width: 100%;
+//   border: none;
+//   height: 30px;
+//   line-height: 30px;
+// }
 .searchCon {
   display: flex;
   // padding: 24px 24px 0;
