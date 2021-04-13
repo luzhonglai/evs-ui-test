@@ -1,6 +1,6 @@
 {
   "name": "evs-pc-component",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "private": false,
   "author": "admin",
   "main": "./src/main.js",
