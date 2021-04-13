@@ -3,14 +3,20 @@
     <div class="searchArea">
       <el-form :model="formData" :rules="rules">
         <el-row :gutter="20">
-          <el-col :span="item.type == 'datetimerange' ? 16 : 8" v-for="item in formModel" :key="item.name">
+          <el-col
+            :span="item.type == 'datetimerange' ? 16 : 8"
+            v-for="item in formModel"
+            :key="item.name"
+          >
             <!-- 省市选择组件 -->
             <div class="search-item" v-if="item.type === 'cascaderLazy'">
-              <div class="label_name" :style="{ paddingRight: item.padding }">{{ item.label }}</div>
+              <div class="label_name" :style="{ paddingRight: item.padding }">
+                {{ item.label }}
+              </div>
               <div class="input_item">
                 <el-cascader
                   clearable
-                  :props="optionProps"
+                  :props="item.optionProps"
                   @change="changeCity"
                   v-model="formData[item.name]"
                 ></el-cascader>
@@ -18,11 +24,12 @@
             </div>
             <!-- 省市区三级联动 -->
             <div class="search-item" v-if="item.type === 'cascader'">
-              <div class="label_name" :style="{ paddingRight: item.padding }">{{ item.label }}</div>
+              <div class="label_name" :style="{ paddingRight: item.padding }">
+                {{ item.label }}
+              </div>
               <div class="input_item">
                 <el-cascader
                   v-model="formData[item.name]"
-                  @change="changeCity"
                   clearable
                   :options="item.options"
                 ></el-cascader>
@@ -32,12 +39,7 @@
             <div class="search-item" v-if="item.type === 'selectStation'">
               <div class="label_name">{{ item.label }}</div>
               <div class="input_item">
-                <SelectStation
-                  style="width:100%"
-                  :cityCode="formData.cityCode ? formData.cityCode[1] : ''"
-                  @EventChangeStation="changeStation"
-                  ref="resetName"
-                ></SelectStation>
+                <slot name="selectStation"></slot>
               </div>
             </div>
             <!-- input组件 -->
@@ -54,7 +56,9 @@
             </div>
             <!-- select组件 -->
             <div class="search-item" v-if="item.type === 'select'">
-              <div class="label_name" :style="{ paddingRight: item.padding }">{{ item.label }}</div>
+              <div class="label_name" :style="{ paddingRight: item.padding }">
+                {{ item.label }}
+              </div>
               <div class="input_item">
                 <el-select
                   v-model="formData[item.name]"
@@ -72,7 +76,10 @@
               </div>
             </div>
             <!-- 时分秒时间组件 -->
-            <div class="search-item" v-if="item.type === 'datetimerange' && !item.selName">
+            <div
+              class="search-item"
+              v-if="item.type === 'datetimerange' && !item.selName"
+            >
               <div class="label_name">{{ item.label }}</div>
               <div class="input_item">
                 <el-date-picker
@@ -87,7 +94,10 @@
               </div>
             </div>
             <!-- 时分秒时间组件前面带选择下拉 selName为前面下拉字段名 -->
-            <div class="search-item" v-if="item.type === 'datetimerange' && item.selName">
+            <div
+              class="search-item"
+              v-if="item.type === 'datetimerange' && item.selName"
+            >
               <div class="label_name" :class="item.selName ? 'group' : ''">
                 <el-select
                   v-model="formData[item.selName]"
@@ -136,9 +146,16 @@
     </div>
     <div class="operator">
       <div class="operator_l">
-        <el-button type="text" class="switch_Btn" @click="switchFlag = !switchFlag" v-if="hasFold">
-          {{ !switchFlag ? '收起' : '展开' }}
-          <i :class="[switchFlag ? 'el-icon-arrow-down' : 'el-icon-arrow-up']"></i>
+        <el-button
+          type="text"
+          class="switch_Btn"
+          @click="switchFlag = !switchFlag"
+          v-if="hasFold"
+        >
+          {{ !switchFlag ? "收起" : "展开" }}
+          <i
+            :class="[switchFlag ? 'el-icon-arrow-down' : 'el-icon-arrow-up']"
+          ></i>
         </el-button>
       </div>
       <div class="operator_r">
@@ -156,15 +173,13 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, computed, reactive, nextTick, ref } from 'vue'
-import { getCityList } from '@/api/home'
-import SelectStation from '@/components/Station/index.vue'
+import { defineComponent, computed, reactive, ref } from "vue";
 export default defineComponent({
-  name: 'mvp-search-area',
+  name: "mvp-search-area",
   props: {
     hasFold: {
       type: Boolean,
-      default: false // 是否有展开收起功能,默认设置false
+      default: false, // 是否有展开收起功能,默认设置false
     },
     rules: Object,
     formModel: Array, // 需要渲染的form组件集合
@@ -174,115 +189,89 @@ export default defineComponent({
     isReset: {
       // 是否显示重置按钮
       type: Boolean,
-      default: true
-    }
-  },
-  components: {
-    SelectStation // 站列表下拉组件
+      default: true,
+    },
   },
   setup(props, ctx) {
-    const resetName = ref()
-    const formData: any = props.initData ? props.initData : reactive({})
-    const defaultTime: any = props.initData ? JSON.parse(JSON.stringify(props.initData)) : reactive({})
+    const formData: any = props.initData ? props.initData : reactive({});
+    const defaultTime: any = props.initData
+      ? JSON.parse(JSON.stringify(props.initData))
+      : reactive({});
 
     const selectOptions = computed(() => {
       return function(item: any) {
         if (item.defaultProps) {
           item.options.forEach((option: any) => {
-            option.label = option[item.defaultProps.label]
-            option.value = option[item.defaultProps.value]
-          })
+            option.label = option[item.defaultProps.label];
+            option.value = option[item.defaultProps.value];
+          });
         }
-        return item.options
-      }
-    })
-    const switchFlag = ref(false) // 展开收起开关
+        return item.options;
+      };
+    });
+    const switchFlag = ref(false); // 展开收起开关
     // 省市切换清空站列表
     const changeCity = () => {
-      formData.stationCode = ''
-      formData.stationName = ''
-      resetName.value.resetStationName()
-    }
+      ctx.emit("changeCity", formData);
+    };
 
-    // 选择站
-    async function changeStation(value: any) {
-      await nextTick()
-      formData.stationCode = value.stationNo
-      formData.stationName = value.stationName
-    }
+    // // 选择站
+    // async function changeStation(value: any) {
+    //   await nextTick()
+    //   formData.stationCode = value.stationNo
+    //   formData.stationName = value.stationName
+    // }
     const handleToggleDateType = (key: any) => {
       //组件前select切换,清空后面时分秒
-      formData[key] = ''
-    }
+      formData[key] = "";
+    };
     // 点击查询按钮
     const submitForm = () => {
-      const emitName = props.emitName as string
-      ctx.emit(emitName ? emitName : 'search', formData)
-    }
+      const emitName: any = props.emitName;
+      ctx.emit(emitName ? emitName : "search", formData);
+    };
     // 重置
     const resetForm = () => {
       for (const key in formData) {
         if (defaultTime && Object.keys(defaultTime).indexOf(key) > -1) {
           if (Array.isArray(defaultTime[key])) {
-            formData[key] = defaultTime[key]
+            formData[key] = defaultTime[key];
           } else {
-            formData[key] = defaultTime[key]
+            formData[key] = defaultTime[key];
           }
         } else {
-          formData[key] = ''
+          formData[key] = "";
         }
       }
-      if (resetName.value) {
-        resetName.value.resetStationName()
-      }
-
-      const emitName = props.emitName as string
-      ctx.emit(emitName ? emitName : 'search', formData)
-    }
+      const emitName: any = props.emitName;
+      ctx.emit(emitName ? emitName : "resetForm", formData);
+    };
     return {
       formData,
-      resetName,
       selectOptions,
       switchFlag,
       changeCity,
-      optionProps: {
-        lazy: true,
-        async lazyLoad(node: any, resolve: any) {
-          const { level } = node
-          if (level == 0) {
-            const data: any = await getCityList({ areaCode: '00' }) //获取省接口
-            const nodes = data.result.map((item: any) => {
-              return {
-                value: item.areaCode,
-                label: item.areaName,
-                leaf: false
-              }
-            })
-            resolve(nodes)
-          } else if (level == 1) {
-            const data: any = await getCityList({ areaCode: node.data.value }) //获取市接口
-            const nodes = data.result.map((item: any) => {
-              return {
-                value: item.areaCode,
-                label: item.areaName,
-                leaf: true
-              }
-            })
-            resetName.value.resetStationName()
-            resolve(nodes)
-          }
-        }
-      },
-      changeStation,
       handleToggleDateType,
       resetForm,
-      submitForm
-    }
-  }
-})
+      submitForm,
+    };
+  },
+});
 </script>
 <style lang="less">
 .searchCon {
+  .searchArea {
+    .el-input__inner,
+    .el-input_item_inner,
+    .el-input--mini .el-input_item_inner,
+    .el-input--small .el-input_item_inner {
+      width: 100%;
+      border: none;
+      height: 30px;
+      line-height: 30px;
+    }
+  }
+
   .el-cascader {
     width: 100% !important;
   }
@@ -309,13 +298,13 @@ export default defineComponent({
 }
 </style>
 <style lang="less" scoped>
-:deep(.el-input__inner, .el-input_item_inner, .el-input--mini .el-input_item_inner, .el-input--small
-    .el-input_item_inner) {
-  width: 100%;
-  border: none;
-  height: 30px;
-  line-height: 30px;
-}
+// :deep(.el-input__inner, .el-input_item_inner, .el-input--mini .el-input_item_inner, .el-input--small
+//     .el-input_item_inner) {
+//   width: 100%;
+//   border: none;
+//   height: 30px;
+//   line-height: 30px;
+// }
 .searchCon {
   display: flex;
   // padding: 24px 24px 0;

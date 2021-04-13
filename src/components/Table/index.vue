@@ -26,7 +26,6 @@
         <el-button v-for="(item,index) in tableOption.options" :key="index" 
             :disabled="scope.row.disabled && scope.row.disabled.indexOf(index) !== -1" :type="item.type" :icon="item.icon" :style="`color: ${item.color}`" 
             @click="handleButton(item.method, scope.row, index)" size="mini">
-            
             <ct-table-render v-if="item.render" :render="item.render" :row="scope.row" :index="scope.$index" :column="item"></ct-table-render>
             <span v-else>{{item.label}}</span>
         </el-button>

@@ -1,3 +1,11 @@
+<!--
+ * @Descripttion:
+ * @Author: Jiang Peng
+ * @Date: 2021-03-30 10:44:38
+ * @LastEditors: Jiang Peng
+ * @LastEditTime: 2021-04-13 17:46:35
+-->
+
 ## 页面搜索域组件开发规范
 
 ### EvsSearchArea 组件包含三部分,form 表单域和操作按钮以及展开收起功能
@@ -22,6 +30,15 @@
   :isReset="false"
   @search="handleSearch"
 >
+  <!-- 这里是站列表懒加载组件，如果需要,slot传入 -->
+  <template v-slot:selectStation>
+    <SelectStation
+      style="width:100%"
+      :cityCode="formData.cityCode ? formData.cityCode[1] : ''"
+      @EventChangeStation="changeStation"
+      ref="resetName"
+    ></SelectStation>
+  </template>
   <!-- 这里可以slot嵌入按钮，组件内部默认有重置、查询、导出按钮 -->
   <template v-slot:new>
     <el-button
