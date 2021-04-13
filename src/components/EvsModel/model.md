@@ -21,9 +21,13 @@
 ##        isClass:true 是否开启显示隐藏 标下的slot 
 ##      },
 ##    ]
+## emit  
+## handleShowModel 显示模态框 回调
+## handleCloseModel 关闭模态框 回调
+## handleAction 确认按钮
 <template>
   <div class="home">
-    <EVSeModel
+    <EvsModel
       :model-is-flag="modelIsFlag"
       :titleComponent="titleComponent"
       actionBtnText="新增"
@@ -65,18 +69,18 @@
           <el-button type="primary">确 定</el-button>
         </div>
       </template>
-    </EVSeModel>
+    </EvsModel>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, reactive, } from 'vue'
-import EVSeModel from '@/components/Dialog/model.vue'
+import EvsModel from '@/components/Dialog/model.vue'
 export default defineComponent({
   name: 'Home',
   components: {
     // HelloWorld
-    EVSeModel,
+    EvsModel,
   },
   setup() {
     const modelIsFlag = ref(false)
