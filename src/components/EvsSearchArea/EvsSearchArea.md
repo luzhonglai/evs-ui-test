@@ -3,7 +3,7 @@
  * @Author: Jiang Peng
  * @Date: 2021-03-30 10:44:38
  * @LastEditors: Jiang Peng
- * @LastEditTime: 2021-04-13 17:46:35
+ * @LastEditTime: 2021-04-14 15:03:32
 -->
 
 ## 页面搜索域组件开发规范
@@ -39,8 +39,8 @@
       ref="resetName"
     ></SelectStation>
   </template>
-  <!-- 这里可以slot嵌入按钮，组件内部默认有重置、查询、导出按钮 -->
-  <template v-slot:new>
+  <!-- 这里可以slot嵌入按钮，组件内部默认有重置、查询,其他操作按钮全部slot导入 -->
+  <template v-slot:othersBtn>
     <el-button
       v-permission="['ROLE_CHARGINMODELLIST_ADD']"
       class="add"

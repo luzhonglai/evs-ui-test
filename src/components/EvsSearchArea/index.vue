@@ -3,99 +3,101 @@
     <div class="searchArea">
       <el-form :model="formData" :rules="rules">
         <el-row :gutter="20">
-          <el-col
-            :span="item.type == 'datetimerange' ? 16 : 8"
-            v-for="item in formModel"
-            :key="item.name"
-          >
+          <el-col :span="item.type == 'datetimerange' ? 16 : 8" v-for="item in formModel" :key="item.name">
             <!-- 省市选择组件 -->
-            <div class="search-item" v-if="item.type === 'cascaderLazy'">
-              <div class="label_name" :style="{ paddingRight: item.padding }">
-                {{ item.label }}
-              </div>
-              <div class="input_item">
-                <el-cascader
-                  clearable
-                  :props="item.optionProps"
-                  @change="changeCity"
-                  v-model="formData[item.name]"
-                ></el-cascader>
-              </div>
-            </div>
-            <!-- 省市区三级联动 -->
-            <div class="search-item" v-if="item.type === 'cascader'">
-              <div class="label_name" :style="{ paddingRight: item.padding }">
-                {{ item.label }}
-              </div>
-              <div class="input_item">
-                <el-cascader
-                  v-model="formData[item.name]"
-                  clearable
-                  :options="item.options"
-                ></el-cascader>
-              </div>
-            </div>
-            <!-- 站列表动态查询组件 -->
-            <div class="search-item" v-if="item.type === 'selectStation'">
-              <div class="label_name">{{ item.label }}</div>
-              <div class="input_item">
-                <slot name="selectStation"></slot>
-              </div>
-            </div>
-            <!-- input组件 -->
-            <div class="search-item" v-if="item.type === 'input'">
-              <div class="label_name" :prop="item.name">{{ item.label }}</div>
-              <div class="input_item">
-                <el-input
-                  style="width:100%"
-                  v-model="formData[item.name]"
-                  clearable
-                  :placeholder="item.placeholder"
-                ></el-input>
-              </div>
-            </div>
-            <!-- select组件 -->
-            <div class="search-item" v-if="item.type === 'select'">
-              <div class="label_name" :style="{ paddingRight: item.padding }">
-                {{ item.label }}
-              </div>
-              <div class="input_item">
-                <el-select
-                  v-model="formData[item.name]"
-                  :placeholder="item.placeholder"
-                  :clearable="true"
-                  :filterable="item.filterable"
-                >
-                  <el-option
-                    v-for="option in selectOptions(item)"
-                    :key="option.label"
-                    :label="option.label"
-                    :value="option.value"
-                  ></el-option>
-                </el-select>
-              </div>
-            </div>
-            <!-- 时分秒时间组件 -->
-            <div
+            <el-form-item
               class="search-item"
+              :label="item.label"
+              :label-width="item.labelWidth"
+              v-if="item.type === 'cascaderLazy'"
+            >
+              <el-cascader
+                clearable
+                :props="item.optionProps"
+                @change="changeCity"
+                v-model="formData[item.name]"
+              ></el-cascader>
+            </el-form-item>
+            <!-- 省市区三级联动 -->
+            <el-form-item
+              class="search-item"
+              :label="item.label"
+              :label-width="item.labelWidth"
+              v-if="item.type === 'cascader'"
+            >
+              <el-cascader v-model="formData[item.name]" clearable :options="item.options"></el-cascader>
+            </el-form-item>
+            <!-- 站列表动态查询组件 -->
+            <el-form-item
+              class="search-item"
+              :label="item.label"
+              :prop="item.name"
+              :label-width="item.labelWidth"
+              v-if="item.type === 'selectStation'"
+            >
+              <slot name="selectStation"></slot>
+            </el-form-item>
+            <!-- input组件 -->
+            <el-form-item
+              class="search-item"
+              :label="item.label"
+              :label-width="item.labelWidth"
+              :prop="item.name"
+              v-if="item.type === 'input'"
+            >
+              <el-input
+                style="width:100%"
+                v-model="formData[item.name]"
+                clearable
+                :placeholder="item.placeholder"
+              ></el-input>
+            </el-form-item>
+            <!-- select组件 -->
+            <el-form-item
+              class="search-item"
+              :label="item.label"
+              :label-width="item.labelWidth"
+              :prop="item.name"
+              v-if="item.type === 'select'"
+            >
+              <el-select
+                v-model="formData[item.name]"
+                :placeholder="item.placeholder"
+                :clearable="true"
+                :filterable="item.filterable"
+              >
+                <el-option
+                  v-for="option in selectOptions(item)"
+                  :key="option.label"
+                  :label="option.label"
+                  :value="option.value"
+                ></el-option>
+              </el-select>
+            </el-form-item>
+            <!-- 时分秒时间组件 -->
+            <el-form-item
+              class="search-item"
+              :label="item.label"
+              :label-width="item.labelWidth"
+              :prop="item.name"
               v-if="item.type === 'datetimerange' && !item.selName"
             >
-              <div class="label_name">{{ item.label }}</div>
-              <div class="input_item">
-                <el-date-picker
-                  type="datetimerange"
-                  v-model="formData[item.name]"
-                  :range-separator="item.rangeSeparator"
-                  :start-placeholder="item.startPlaceholder"
-                  :end-placeholder="item.endPlaceholder"
-                  style="width:100%"
-                  :default-time="item.defaultTime"
-                ></el-date-picker>
-              </div>
-            </div>
+              <el-date-picker
+                type="datetimerange"
+                v-model="formData[item.name]"
+                :range-separator="item.rangeSeparator"
+                :start-placeholder="item.startPlaceholder"
+                :end-placeholder="item.endPlaceholder"
+                style="width:100%"
+                :default-time="item.defaultTime"
+              ></el-date-picker>
+            </el-form-item>
             <!-- 时分秒时间组件前面带选择下拉 selName为前面下拉字段名 -->
             <div
               class="search-item"
+              :label="item.label"
+              :label-width="item.labelWidth"
+              :prop="item.name"
               v-if="item.type === 'datetimerange' && item.selName"
             >
               <div class="label_name" :class="item.selName ? 'group' : ''">
@@ -126,60 +128,50 @@
               </div>
             </div>
             <!-- 年月日时间组件 -->
-            <div class="search-item" v-if="item.type === 'daterange'">
-              <div class="label_name">{{ item.label }}</div>
-              <div class="input_item">
-                <el-date-picker
-                  type="daterange"
-                  v-model="formData[item.name]"
-                  :range-separator="item.rangeSeparator"
-                  :start-placeholder="item.startPlaceholder"
-                  :end-placeholder="item.endPlaceholder"
-                  style="width: 100%;"
-                  :shortcuts="item.shortcuts"
-                ></el-date-picker>
-              </div>
-            </div>
+            <el-form-item
+              class="search-item"
+              :label="item.label"
+              :label-width="item.labelWidth"
+              :prop="item.name"
+              v-if="item.type === 'daterange'"
+            >
+              <el-date-picker
+                type="daterange"
+                v-model="formData[item.name]"
+                :range-separator="item.rangeSeparator"
+                :start-placeholder="item.startPlaceholder"
+                :end-placeholder="item.endPlaceholder"
+                style="width: 100%;"
+                :shortcuts="item.shortcuts"
+              ></el-date-picker>
+            </el-form-item>
           </el-col>
         </el-row>
       </el-form>
     </div>
     <div class="operator">
       <div class="operator_l">
-        <el-button
-          type="text"
-          class="switch_Btn"
-          @click="switchFlag = !switchFlag"
-          v-if="hasFold"
-        >
-          {{ !switchFlag ? "收起" : "展开" }}
-          <i
-            :class="[switchFlag ? 'el-icon-arrow-down' : 'el-icon-arrow-up']"
-          ></i>
+        <el-button type="text" class="switch_Btn" @click="switchFlag = !switchFlag" v-if="hasFold">
+          {{ !switchFlag ? '收起' : '展开' }}
+          <i :class="[switchFlag ? 'el-icon-arrow-down' : 'el-icon-arrow-up']"></i>
         </el-button>
       </div>
       <div class="operator_r">
         <el-button v-if="isReset" @click="resetForm">重置</el-button>
         <el-button type="primary" @click="submitForm">查询</el-button>
-        <export
-          v-if="exportModel"
-          :fileName="exportModel.fileName"
-          :url="exportModel.url"
-          :params="exportModel.params"
-        ></export>
-        <slot name="new"></slot>
+        <slot name="othersBtn"></slot>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, computed, reactive, ref } from "vue";
+import { defineComponent, computed, reactive, ref } from 'vue'
 export default defineComponent({
-  name: "mvp-search-area",
+  name: 'mvp-search-area',
   props: {
     hasFold: {
       type: Boolean,
-      default: false, // 是否有展开收起功能,默认设置false
+      default: false // 是否有展开收起功能,默认设置false
     },
     rules: Object,
     formModel: Array, // 需要渲染的form组件集合
@@ -189,63 +181,55 @@ export default defineComponent({
     isReset: {
       // 是否显示重置按钮
       type: Boolean,
-      default: true,
-    },
+      default: true
+    }
   },
   setup(props, ctx) {
-    const formData: any = props.initData ? props.initData : reactive({});
-    const defaultTime: any = props.initData
-      ? JSON.parse(JSON.stringify(props.initData))
-      : reactive({});
+    const formData: any = props.initData ? props.initData : reactive({})
+    const defaultTime: any = props.initData ? JSON.parse(JSON.stringify(props.initData)) : reactive({})
 
     const selectOptions = computed(() => {
       return function(item: any) {
         if (item.defaultProps) {
           item.options.forEach((option: any) => {
-            option.label = option[item.defaultProps.label];
-            option.value = option[item.defaultProps.value];
-          });
+            option.label = option[item.defaultProps.label]
+            option.value = option[item.defaultProps.value]
+          })
         }
-        return item.options;
-      };
-    });
-    const switchFlag = ref(false); // 展开收起开关
+        return item.options
+      }
+    })
+    const switchFlag = ref(false) // 展开收起开关
     // 省市切换清空站列表
     const changeCity = () => {
-      ctx.emit("changeCity", formData);
-    };
+      ctx.emit('changeCity', formData)
+    }
 
-    // // 选择站
-    // async function changeStation(value: any) {
-    //   await nextTick()
-    //   formData.stationCode = value.stationNo
-    //   formData.stationName = value.stationName
-    // }
     const handleToggleDateType = (key: any) => {
       //组件前select切换,清空后面时分秒
-      formData[key] = "";
-    };
+      formData[key] = ''
+    }
     // 点击查询按钮
     const submitForm = () => {
-      const emitName: any = props.emitName;
-      ctx.emit(emitName ? emitName : "search", formData);
-    };
+      const emitName = props.emitName as string
+      ctx.emit(emitName ? emitName : 'search', formData)
+    }
     // 重置
     const resetForm = () => {
       for (const key in formData) {
         if (defaultTime && Object.keys(defaultTime).indexOf(key) > -1) {
           if (Array.isArray(defaultTime[key])) {
-            formData[key] = defaultTime[key];
+            formData[key] = defaultTime[key]
           } else {
-            formData[key] = defaultTime[key];
+            formData[key] = defaultTime[key]
           }
         } else {
-          formData[key] = "";
+          formData[key] = ''
         }
       }
-      const emitName: any = props.emitName;
-      ctx.emit(emitName ? emitName : "resetForm", formData);
-    };
+      const emitName = props.emitName as string
+      ctx.emit(emitName ? emitName : 'resetForm', formData)
+    }
     return {
       formData,
       selectOptions,
@@ -253,10 +237,10 @@ export default defineComponent({
       changeCity,
       handleToggleDateType,
       resetForm,
-      submitForm,
-    };
-  },
-});
+      submitForm
+    }
+  }
+})
 </script>
 <style lang="less">
 .searchCon {
@@ -267,8 +251,8 @@ export default defineComponent({
     .el-input--small .el-input_item_inner {
       width: 100%;
       border: none;
-      height: 30px;
-      line-height: 30px;
+      height: 32px;
+      line-height: 32px;
     }
   }
 
@@ -276,8 +260,6 @@ export default defineComponent({
     width: 100% !important;
   }
   .el-button {
-    margin-left: 0 !important;
-    margin-top: 16px !important;
     &:nth-child(1),
     &:nth-child(2) {
       margin-top: 0 !important;
@@ -298,13 +280,6 @@ export default defineComponent({
 }
 </style>
 <style lang="less" scoped>
-// :deep(.el-input__inner, .el-input_item_inner, .el-input--mini .el-input_item_inner, .el-input--small
-//     .el-input_item_inner) {
-//   width: 100%;
-//   border: none;
-//   height: 30px;
-//   line-height: 30px;
-// }
 .searchCon {
   display: flex;
   // padding: 24px 24px 0;
@@ -318,14 +293,25 @@ export default defineComponent({
       border: 1px solid #dcdcdc;
       display: flex;
       flex-direction: row;
-      align-items: center;
+      // align-items: center;
       margin-top: 16px;
+      margin-bottom: 0px;
       .label_name {
         line-height: 1;
         padding: 0 12px;
         color: #666;
         font-size: 12px;
-        border-right: 1px solid #ddd;
+        position: relative;
+        &::after {
+          position: absolute;
+          top: -1px;
+          right: 0;
+          display: block;
+          content: '|';
+          color: #dcdcdc;
+          height: 32px;
+          line-height: 32px;
+        }
       }
       .group {
         padding: 0;
@@ -336,6 +322,34 @@ export default defineComponent({
       .input_item {
         flex: 1;
       }
+      /deep/ label {
+        position: relative;
+        text-align: left;
+        padding-left: 12px;
+        box-sizing: border-box;
+        font-size: 12px;
+        &::after {
+          position: absolute;
+          top: -1px;
+          right: 0;
+          display: block;
+          content: '|';
+          color: #dcdcdc;
+          height: 32px;
+          line-height: 32px;
+        }
+        &::before {
+          position: absolute;
+          left: 4px;
+        }
+      }
+      /deep/ .el-form-item__error {
+        padding-top: 2px;
+      }
+      /deep/ .el-form-item__content {
+        margin-left: 0 !important;
+        flex: 1;
+      }
     }
     .el-col {
       &:nth-child(1),
@@ -343,24 +357,6 @@ export default defineComponent({
       &:nth-child(3) {
         .search-item {
           margin-top: 0;
-        }
-      }
-    }
-  }
-  .operator {
-    width: 215px;
-    padding-left: 42px;
-    .operator_l {
-      float: left;
-    }
-    .operator_r {
-      margin-left: 12px;
-      width: 160px;
-      float: right;
-      // text-align: right;
-      button {
-        &:nth-child(odd) {
-          margin-right: 12px;
         }
       }
     }
