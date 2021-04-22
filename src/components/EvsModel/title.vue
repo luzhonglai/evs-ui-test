@@ -1,9 +1,9 @@
 <!--  -->
 <template>
   <div class="title">
-    <div class="title-text" :class="{ 'title_b': isClass }">
+    <div class="title-text" :class="{ title_b: isClass }">
       {{ itemTitle }}
-      <div v-if="isClass">
+      <div v-if="isClass" class="arror-box">
         <i
           class="el-icon-arrow-right item"
           :class="{ 'is-active': show }"
@@ -13,27 +13,22 @@
       </div>
     </div>
   </div>
-  <div >
+  <div>
     <el-collapse-transition>
-      <div v-show="show && isClass">
+      <div v-show="show && isClass" class="title-container">
         <slot></slot>
       </div>
     </el-collapse-transition>
   </div>
-  <div v-if="!isClass">
+  <div v-if="!isClass" class="title-container">
     <slot></slot>
   </div>
 </template>
 
 <script lang='ts'>
-import {
-  defineComponent,
-  ref,
-  onBeforeMount,
-  onMounted,
-} from 'vue'
+import { defineComponent, ref, onBeforeMount, onMounted } from 'vue'
 export default defineComponent({
-  name: 'EVSTitle',
+  name: 'EvsTitle',
   props: {
     itemTitle: {
       type: String,
@@ -47,10 +42,8 @@ export default defineComponent({
   emits: ['showActive'],
   setup(props: any, { emit, attrs }: any) {
     const show = ref(true)
-    onBeforeMount(() => {
-    })
-    onMounted(() => {
-    })
+    onBeforeMount(() => {})
+    onMounted(() => {})
     const showBox = () => {
       show.value = !show.value
       emit('showActive', show.value)
@@ -76,20 +69,23 @@ export default defineComponent({
     text-align: left;
     border-left: 2px solid #5587f0;
   }
+  .arror-box{
+    float: right;
+  }
   .item {
     transition: transform 0.3s;
     font-weight: 300;
   }
   .title_b {
-    display: flex;
-    justify-content: space-between;
+    // display: flex;
+    // justify-content: space-between;
     padding-right: 10px;
   }
   .is-active {
     transform: rotate(90deg);
   }
-  .transtion-ani {
-    transition: all 0.3s;
-  }
+}
+.title-container {
+  padding: 10px 0 10px 0;
 }
 </style>

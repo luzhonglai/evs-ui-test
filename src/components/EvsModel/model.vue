@@ -1,7 +1,7 @@
 <!--  -->
 <template>
   <div class="model">
-    <el-button type="primary" plain @click="showModel">{{
+    <el-button v-if="actionBtnText" type="primary" plain @click="showModel">{{
       actionBtnText
     }}</el-button>
     <el-dialog
@@ -22,9 +22,9 @@
       </template>
       <template v-if="titleComponent">
         <div class="vfor-title" v-for="item in titleComponent" :key="item">
-          <EVSTitle :itemTitle="item.title" :isClass="item.isClass">
+          <EvsTitle :itemTitle="item.title" :isClass="item.isClass">
             <slot :name="item.slot"></slot>
-          </EVSTitle>
+          </EvsTitle>
         </div>
       </template>
       <slot></slot>
@@ -34,21 +34,17 @@
 </template>
 
 <script lang='ts'>
-import EVSTitle from "./title.vue";
+import EvsTitle from './title.vue'
 import {
   defineComponent,
-  reactive,
-  toRefs,
-  ref,
-  watch,
   onBeforeMount,
   onMounted,
   computed,
-} from "vue";
+} from 'vue'
 export default defineComponent({
-  name: "EVSeModel",
+  name: 'EvsModel',
   components: {
-    EVSTitle,
+    EvsTitle,
   },
   props: {
     modelIsFlag: {
@@ -57,17 +53,17 @@ export default defineComponent({
     },
     title: {
       type: [String, Number],
-      default: "提示",
+      default: '提示',
     },
     width: {
       type: [String, Number],
       default: () => {
-        return "50%";
+        return '50%'
       },
     },
     actionBtnText: {
       type: String,
-      default: "确认",
+      default: '',
     },
     destrorOnClose: {
       type: Boolean,
@@ -75,51 +71,51 @@ export default defineComponent({
     },
     titleAlign: {
       type: String,
-      default: "left",
+      default: 'left',
     },
     titleCssText: {
       //  模态框标题 自定义颜色大小对齐方式
       type: [Object, Array],
       default: () => {
-        return {};
+        return {}
       },
     },
     titleComponent: {
       type: [Object, Array],
       default: () => {
-        return [];
+        return []
       },
     },
   },
-  emits: ["handleComfirm", "handleShowModel", "handleCloseModel"],
+  emits: ['handleComfirm', 'handleShowModel', 'handleCloseModel'],
   setup(props: any, { emit, attrs }: any) {
-    const titleAlign = props.titleAlign; // 标题对齐方式
-    const titleCssTextActive = props.titleCssText; // 标题文字css 自定义
+    const titleAlign = props.titleAlign // 标题对齐方式
+    const titleCssTextActive = props.titleCssText // 标题文字css 自定义
     const titleAlignActive = computed(() => {
       // title 文字 对齐方式
-      return "text-align:" + props.titleAlign;
-    });
+      return 'text-align:' + props.titleAlign
+    })
     const showCloseIcon = computed(() => {
       // 按钮右对齐 ，隐藏关闭按钮
-      if (titleAlign == "right") {
-        return false;
+      if (titleAlign == 'right') {
+        return false
       } else {
-        return true;
+        return true
       }
-    });
-    onBeforeMount(() => {});
-    onMounted(() => {});
+    })
+    onBeforeMount(() => {})
+    onMounted(() => {})
     const showModel = () => {
       // 显示
-      emit("handleShowModel", true);
-    };
+      emit('handleShowModel', true)
+    }
     const closeModel = () => {
       // 关闭
-      emit("handleCloseModel", false);
-    };
+      emit('handleCloseModel', false)
+    }
     const handleAction = () => {
-      emit("handleComfirm");
-    };
+      emit('handleComfirm')
+    }
     return {
       attrs,
       showModel,
@@ -128,9 +124,9 @@ export default defineComponent({
       showCloseIcon,
       titleCssTextActive,
       handleAction,
-    };
+    }
   },
-});
+})
 </script>
 <style scoped lang='less'>
 .model {
