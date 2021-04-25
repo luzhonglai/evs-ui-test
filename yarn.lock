@@ -848,6 +848,16 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
+"@evs-pc/evs-pc-component@^0.1.0":
+  version "0.1.0"
+  resolved "http://10.10.18.122:7001/@evs-pc/evs-pc-component/download/@evs-pc/evs-pc-component-0.1.0.tgz#cf7960a68de5e77a336fcd1edf398f99c684544e"
+  integrity sha1-z3lgpo3l53ozb80e3zmPmcaEVE4=
+  dependencies:
+    core-js "^3.6.5"
+    file-saver "^2.0.5"
+    vue "^3.0.0"
+    xlsx "^0.16.9"
+
 "@hapi/address@2.x.x":
   version "2.1.4"
   resolved "http://192.168.102.93:8081/repository/evs-npm-group/@hapi/address/-/address-2.1.4.tgz"

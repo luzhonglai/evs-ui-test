@@ -1,16 +1,13 @@
 {
   "name": "@evs-pc/evs-pc-component",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "private": false,
-  "author": "admin",
+  "author": "raree",
   "main": "./src/main.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
-  },
-  "publishConfig": {
-    "registry": "http://192.168.102.93:8081/repository/evs-npm-hosted/"
   },
   "dependencies": {
     "core-js": "^3.6.5",
@@ -19,6 +16,7 @@
     "xlsx": "^0.16.9"
   },
   "devDependencies": {
+    "@evs-pc/evs-pc-component": "^0.1.0",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
