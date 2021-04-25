@@ -10,6 +10,7 @@
       v-bind="attrs"
       :show-close="showCloseIcon"
       :destroy-on-close="destrorOnClose"
+      :append-to-body="appendToBody"
       @close="closeModel"
     >
       <template #title>
@@ -68,6 +69,10 @@ export default defineComponent({
     destrorOnClose: {
       type: Boolean,
       default: true,
+    },
+    appendToBody:{
+      type:Boolean,
+      default:false
     },
     titleAlign: {
       type: String,

@@ -1,11 +1,6 @@
 {
-<<<<<<< HEAD
   "name": "evs-pc-component",
   "version": "0.2.0",
-=======
-  "name": "evs-pc-components",
-  "version": "0.1.2",
->>>>>>> c5086d49b35d2f0fe1c8bcaa5b1f6e45a830203f
   "private": false,
   "author": "admin",
   "main": "./src/main.js",
