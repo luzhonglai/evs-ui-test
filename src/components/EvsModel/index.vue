@@ -8,6 +8,7 @@
       v-bind="attrs"
       :show-close="showCloseIcon"
       :destroy-on-close="destrorOnClose"
+      :append-to-body="appendToBody"
       @close="closeModel"
     >
       <template #title>
@@ -58,6 +59,10 @@
       destrorOnClose: {
         type: Boolean,
         default: true,
+      },
+      appendToBody: {
+        type: Boolean,
+        default: false,
       },
       titleAlign: {
         type: String,

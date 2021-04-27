@@ -2,8 +2,12 @@
   <div class="ct-query-area">
     <div class="ct-query-input">
       <el-form :model="formData" :inline="true" label-width="80px" size="medium">
-        <el-form-item v-for="(item) in formModel" :key="item.name" :label="item.label">
-          <el-input v-if="item.type === 'input'" v-model="formData[item.name]" :placeholder="item.placeholder"></el-input>
+        <el-form-item v-for="item in formModel" :key="item.name" :label="item.label">
+          <el-input
+            v-if="item.type === 'input'"
+            v-model="formData[item.name]"
+            :placeholder="item.placeholder"
+          ></el-input>
           <el-select
             v-if="item.type === 'select'"
             v-model="formData[item.name]"
@@ -27,10 +31,10 @@
           </el-select>
           <ct-select-tree
             v-if="item.type === 'selectTree'"
-            :style="{width: '100%'}"
+            :style="{ width: '100%' }"
             :props="item.areaTreeProps"
             :options="item.options"
-            @getValue="setArea($event,item.name,item.areaTreeProps.value)"
+            @getValue="setArea($event, item.name, item.areaTreeProps.value)"
           ></ct-select-tree>
           <el-date-picker
             v-if="item.type === 'datetimerange'"
@@ -56,7 +60,7 @@
             end-placeholder="结束日期"
             align="right"
           ></el-date-picker>
-           <el-date-picker
+          <el-date-picker
             v-if="item.type === 'date'"
             v-model="formData[item.name]"
             type="date"
@@ -74,8 +78,8 @@
           ></el-date-picker>
           <el-date-picker
             v-if="item.type === 'year'"
-            value-format="yyyy"
             v-model="formData[item.name]"
+            value-format="yyyy"
             type="year"
             placeholder="选择年份"
           ></el-date-picker>
@@ -89,120 +93,117 @@
   </div>
 </template>
 <script lang="ts">
-import { reactive, computed } from "@vue/composition-api"
-export default {
-  name: 'evs-search-area',
-  props: {
-    formModel: Array,
-    emitName: String,
-    defaultProps: Object,
-    datePickerOptions: {
-      type: Object,
-      default: function() {
-        return {}
-      }
-    }
-  },
-  setup(props: any, ctx: any) {
-    const formData: any = reactive({})
-    const selectOptions = computed(() => {
-      return function(item: any) {
-        if (item.defaultProps) {
-          item.options.forEach((option: any) => {
-            option.label = option[item.defaultProps.label]
-            option.value = option[item.defaultProps.value]
-          })
+  import { reactive, computed } from 'vue'
+  export default {
+    name: 'EvsSearchArea',
+    props: {
+      formModel: Array,
+      emitName: String,
+      defaultProps: Object,
+      datePickerOptions: {
+        type: Object,
+        default: function() {
+          return {}
+        },
+      },
+    },
+    setup(props: any, ctx: any) {
+      const formData: any = reactive({})
+      const selectOptions = computed(() => {
+        return function(item: any) {
+          if (item.defaultProps) {
+            item.options.forEach((option: any) => {
+              option.label = option[item.defaultProps.label]
+              option.value = option[item.defaultProps.value]
+            })
+          }
+          return item.options
         }
-        return item.options
+      })
+
+      function search() {
+        const emitName = props.emitName
+        ctx.emit(emitName ? emitName : 'search', formData)
       }
-    })
 
-    function search() {
-      const emitName = props.emitName as string
-      ctx.emit(emitName ? emitName : 'search', formData)
-    }
+      function setDate(params: string[]) {
+        const [startTime, endTime] = params
+        formData[startTime] = formData.datetimerange[0]
+        formData[endTime] = formData.datetimerange[1]
+        // delete formData.datetimerange
+      }
 
-    function setDate(params: string[]) {
-      const [startTime, endTime] = params
-      formData[startTime] = formData.datetimerange[0]
-      formData[endTime] = formData.datetimerange[1]
-      // delete formData.datetimerange
-    }
-
-    function setArea(data: any, name: string, propsName: string) {
-      formData[name] = data[propsName]
-    }
-    function reset(){
-      for(const key in formData){
+      function setArea(data: any, name: string, propsName: string) {
+        formData[name] = data[propsName]
+      }
+      function reset() {
+        for (const key in formData) {
           formData[key] = ''
+        }
+        search()
       }
-      search()
-    }
-    function triggerSelectChild(option: any, item: any) {
-      if (item.hasChild) {
-        ctx.emit('triggerSelectChild', option)
+      function triggerSelectChild(option: any, item: any) {
+        if (item.hasChild) {
+          ctx.emit('triggerSelectChild', option)
+        }
       }
-    }
 
-    return {
-      formData,
-      selectOptions,
-      search,
-      setDate,
-      setArea,
-      reset,
-      triggerSelectChild
-    }
+      return {
+        formData,
+        selectOptions,
+        search,
+        setDate,
+        setArea,
+        reset,
+        triggerSelectChild,
+      }
+    },
   }
-}
 </script>
 <style lang="scss" scoped>
-.ct-query-input {
-  width: 100%;
+  .ct-query-input {
+    width: 100%;
 
-  .el-button {
-    padding: 10px 15px;
-  }
+    .el-button {
+      padding: 10px 15px;
+    }
 
-  ::v-deep .el-form-item__label {
-    line-height: 36px;
-  }
+    ::v-deep .el-form-item__label {
+      line-height: 36px;
+    }
 
-  .el-form-item__content {
-    min-width: 220px;
-    line-height: 3px;
-  }
-
-  .el-input,
-  .el-select {
-    width: 284px !important;
-  }
-
-  .el-form-item {
-    margin-right: 20px;
-    display: inline-block;
-  }
-
-  .ct-query-input__button {
     .el-form-item__content {
-      width: 120px;
-      margin-left: 0px;
+      min-width: 220px;
+      line-height: 3px;
+    }
+
+    .el-input,
+    .el-select {
+      width: 284px !important;
+    }
+
+    .el-form-item {
+      margin-right: 20px;
+      display: inline-block;
+    }
+
+    .ct-query-input__button {
+      .el-form-item__content {
+        width: 120px;
+        margin-left: 0px;
+      }
+    }
+
+    .el-select {
+      width: 100%;
+    }
+
+    .el-date-editor .el-range-input {
+      width: 42%;
+    }
+
+    .el-range-separator {
+      line-height: 30px;
     }
   }
-
-  .el-select {
-    width: 100%;
-  }
-
-  .el-date-editor .el-range-input {
-    width: 42%;
-  }
-
-  .el-range-separator {
-    line-height: 30px;
-  }
-}
-
 </style>
-
-
