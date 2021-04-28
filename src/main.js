@@ -12,13 +12,14 @@ import Export from './components/Export/index.vue'
 import EvsTablePage from './components/EvsTablePage/index.vue'
 import EvsSearchArea from './components/EvsSearchArea/index.vue'
 import EvsModel from './components/EvsModel/index.vue'
-
+import EvsTablePlus from './components/EvsTablePlus'
 const components = {
   SearchArea,
   EvsTablePage,
   EvsSearchArea,
   Export,
   EvsModel,
+  EvsTablePlus
 }
 
 const install = function(Vue) {
@@ -34,4 +35,4 @@ export default {
   ...components,
 }
 
-export { SearchArea, EvsTablePage, EvsSearchArea, Export, EvsModel }
+export { SearchArea, EvsTablePage, EvsSearchArea, Export, EvsModel,EvsTablePlus }
