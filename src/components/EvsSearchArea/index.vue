@@ -167,7 +167,7 @@
 <script lang="ts">
 import { defineComponent, computed, reactive, ref } from 'vue'
 export default defineComponent({
-  name: 'MvpSearchArea',
+  name: 'EvsSearchArea',
   props: {
     hasFold: {
       type: Boolean,
@@ -370,22 +370,21 @@ export default defineComponent({
   }
 }
 .fold {
-  height: 34px;
+  height: 36px;
   overflow: hidden;
 }
 .operator {
-  width: 215px;
+  width: 220px;
   padding-left: 12px;
-  display: flex;
   .operator_l {
-    // float: left;
+    float: left;
   }
   .operator_r {
-    // width: 170px;
-    // float: right;
-    button {
-      margin-left: 12px;
-      margin-bottom: 12px;
+    width: 170px;
+    float: right;
+    :deep(button) {
+      margin-left: 10px!important;
+      margin-bottom: 12px!important;
     }
   }
 }

@@ -14,13 +14,13 @@
       @handleSelectionChange="selectChange"
     >
     </table-plus>
-    <evs-model
+    <EvsModel
       :model-is-flag="modelIsFlag"
       :titleComponent="titleComponent"
       @handleShowModel="showModel"
       @handleCloseModel="closeModel"
     >
-    </evs-model>
+    </EvsModel>
   </div>
 </template>
 <script lang="ts">
@@ -87,7 +87,7 @@ export default defineComponent({
     // 操作按钮
     const clickAction = (method: string, row: any, index: number) => {
       console.log(method, row.name, index)
-      if (method == 'showDetail') {
+      if (method == 'showDetail') { // 按钮大于3个 使用 switch 更好一些
         modelIsFlag.value = true
       }
     }
