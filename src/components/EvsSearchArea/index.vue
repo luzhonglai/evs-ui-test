@@ -231,7 +231,7 @@ export default defineComponent({
     };
     // 点击查询按钮
     const submitForm = () => {
-      const emitName = props.emitName as string
+      const emitName:string = props.emitName as string
       ctx.emit(emitName ? emitName : "search", formData)
     };
     // 重置
