@@ -376,12 +376,13 @@ export default defineComponent({
 .operator {
   width: 215px;
   padding-left: 12px;
+  display: flex;
   .operator_l {
-    float: left;
+    // float: left;
   }
   .operator_r {
     // width: 170px;
-    float: right;
+    // float: right;
     button {
       margin-left: 12px;
       margin-bottom: 12px;
