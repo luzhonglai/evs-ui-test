@@ -4,7 +4,7 @@
  * @Author: ZhongLai Lu
  * @Date: 2021-04-01 16:37:56
  * @LastEditors: Zhonglai Lu
- * @LastEditTime: 2021-04-06 15:10:49
+ * @LastEditTime: 2021-04-28 10:05:31
 -->
 
 # EvsTablePag
@@ -102,56 +102,56 @@
 
   export default defineComponent({
     components: {
-      EvsTablePage
+      EvsTablePage,
     },
     data() {
       return {
         pagination: {
           currentPage: 1,
           pageSize: 10,
-          total: 0
+          total: 0,
         },
         tableData: {
           tableColumn: [
             {
               width: '120',
               label: '名称',
-              prop: 'name'
+              prop: 'name',
             },
             {
               label: '日期',
-              prop: 'date'
+              prop: 'date',
             },
             {
               label: '地址',
-              prop: 'address'
-            }
+              prop: 'address',
+            },
           ],
           data: [
             {
               date: '2016-05-02',
               name: '王小虎',
-              address: '上海市普陀区金沙江路 1518 弄'
+              address: '上海市普陀区金沙江路 1518 弄',
             },
             {
               date: '2016-05-04',
               name: '王小虎',
-              address: '上海市普陀区金沙江路 1517 弄'
+              address: '上海市普陀区金沙江路 1517 弄',
             },
             {
               date: '2016-05-01',
               name: '王小虎',
-              address: '上海市普陀区金沙江路 1519 弄'
+              address: '上海市普陀区金沙江路 1519 弄',
             },
             {
               date: '2016-05-03',
               name: '王小虎',
-              address: '上海市普陀区金沙江路 1516 弄'
-            }
-          ]
-        }
+              address: '上海市普陀区金沙江路 1516 弄',
+            },
+          ],
+        },
       }
-    }
+    },
   })
 </script>
 ```

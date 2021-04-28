@@ -25,67 +25,67 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent, ref, onBeforeMount, onMounted } from 'vue'
-export default defineComponent({
-  name: 'EvsTitle',
-  props: {
-    itemTitle: {
-      type: String,
-      default: '',
+<script lang="ts">
+  import { defineComponent, ref, onBeforeMount, onMounted } from 'vue'
+  export default defineComponent({
+    name: 'EvsTitle',
+    props: {
+      itemTitle: {
+        type: String,
+        default: '',
+      },
+      isClass: {
+        type: Boolean,
+        default: false,
+      },
     },
-    isClass: {
-      type: Boolean,
-      default: false,
+    emits: ['showActive'],
+    setup(props: any, { emit, attrs }: any) {
+      const show = ref(true)
+      onBeforeMount(() => {})
+      onMounted(() => {})
+      const showBox = () => {
+        show.value = !show.value
+        emit('showActive', show.value)
+      }
+      return {
+        showBox,
+        show,
+      }
     },
-  },
-  emits: ['showActive'],
-  setup(props: any, { emit, attrs }: any) {
-    const show = ref(true)
-    onBeforeMount(() => {})
-    onMounted(() => {})
-    const showBox = () => {
-      show.value = !show.value
-      emit('showActive', show.value)
-    }
-    return {
-      showBox,
-      show,
-    }
-  },
-})
+  })
 </script>
-<style scoped lang='less'>
-.title {
-  .title-text {
-    height: 40px;
-    background: rgba(85, 135, 240, 0.1);
-    font-size: 14px;
-    padding-left: 10px;
-    border-radius: 3px;
-    line-height: 40px;
-    margin: 0 0 10px;
-    color: #4a4a4a;
-    text-align: left;
-    border-left: 2px solid #5587f0;
+<style scoped lang="less">
+  .title {
+    .title-text {
+      height: 40px;
+      background: rgba(85, 135, 240, 0.1);
+      font-size: 14px;
+      padding-left: 10px;
+      border-radius: 3px;
+      line-height: 40px;
+      margin: 0 0 10px;
+      color: #4a4a4a;
+      text-align: left;
+      border-left: 2px solid #5587f0;
+    }
+    .arror-box {
+      float: right;
+    }
+    .item {
+      transition: transform 0.3s;
+      font-weight: 300;
+    }
+    .title_b {
+      // display: flex;
+      // justify-content: space-between;
+      padding-right: 10px;
+    }
+    .is-active {
+      transform: rotate(90deg);
+    }
   }
-  .arror-box{
-    float: right;
+  .title-container {
+    padding: 10px 0 10px 0;
   }
-  .item {
-    transition: transform 0.3s;
-    font-weight: 300;
-  }
-  .title_b {
-    // display: flex;
-    // justify-content: space-between;
-    padding-right: 10px;
-  }
-  .is-active {
-    transform: rotate(90deg);
-  }
-}
-.title-container {
-  padding: 10px 0 10px 0;
-}
 </style>

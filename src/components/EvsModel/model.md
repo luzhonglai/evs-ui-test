@@ -8,7 +8,6 @@
 ## width  模态框宽度
 ## actionBtnText 开启模态框的按钮文字
 ## destrorOnClose 是否销毁模态框内的元素  
-## appendToBody 是否插入body （嵌套model内层model需要开启）
 ## titleAlign 标题对齐方式
 ## titleCssText 标题问题css 自定义
 ## titleComponent = [  使用 模态框内标题组件 

@@ -3,7 +3,7 @@
  * @Author: Jiang Peng
  * @Date: 2021-03-30 10:44:38
  * @LastEditors: Jiang Peng
- * @LastEditTime: 2021-04-08 09:41:51
+ * @LastEditTime: 2021-04-14 15:03:32
 -->
 
 ## 页面搜索域组件开发规范
@@ -14,12 +14,7 @@
 
 组件调用参数
 
-> formModel 为渲染 form 表单类型对象
-> exportModel 为导出参数
-> initData 为设置页面加载后默认显示的数据
-> hasFold 是否显示展开收起功能，默认 false 不显示
-> isReset 是否显示重置按钮，默认组件显示该按钮
-> handleSearch 组件里面查询后回调方法
+> formModel 为渲染 form 表单类型对象 exportModel 为导出参数 initData 为设置页面加载后默认显示的数据 hasFold 是否显示展开收起功能，默认 false 不显示 isReset 是否显示重置按钮，默认组件显示该按钮 handleSearch 组件里面查询后回调方法
 
 ```html
 <EvsSearchArea
@@ -39,8 +34,8 @@
       ref="resetName"
     ></SelectStation>
   </template>
-  <!-- 这里可以slot嵌入按钮，组件内部默认有重置、查询、导出按钮 -->
-  <template v-slot:new>
+  <!-- 这里可以slot嵌入按钮，组件内部默认有重置、查询,其他操作按钮全部slot导入 -->
+  <template v-slot:othersBtn>
     <el-button
       v-permission="['ROLE_CHARGINMODELLIST_ADD']"
       class="add"
@@ -56,13 +51,7 @@
 
 formModel 对象详解
 
-> selName 为时间选择前有下拉选择的组件，值为 select 的数据名称
-> name 数据名称
-> type 组件渲染类型，目前包含 input、select、daterange（年月日）、datetimerange（年月日时分秒）、 selectStation（封装的站列表组件）cascaderLazy（省市二级联动懒加载组件）cascader（为普通级联选择）
-> padding 为设置 label 和表单域之间的间距
-> options 为 select 下拉列表数据
-> defaultTime 为时分秒组件选定后，默认设置 23:59:59 格式
-> shortcuts 为年月日快捷选择配置
+> selName 为时间选择前有下拉选择的组件，值为 select 的数据名称 name 数据名称 type 组件渲染类型，目前包含 input、select、daterange（年月日）、datetimerange（年月日时分秒）、 selectStation（封装的站列表组件）cascaderLazy（省市二级联动懒加载组件）cascader（为普通级联选择） padding 为设置 label 和表单域之间的间距 options 为 select 下拉列表数据 defaultTime 为时分秒组件选定后，默认设置 23:59:59 格式 shortcuts 为年月日快捷选择配置
 
 ```ecmascript 6
 <!-- model数据 -->
