@@ -3,7 +3,11 @@
     <div class="searchArea">
       <el-form :model="formData" :rules="rules">
         <el-row :gutter="20">
-          <el-col :span="item.type == 'datetimerange' ? 16 : 8" v-for="item in formModel" :key="item.name">
+          <el-col
+            :span="item.type == 'datetimerange' ? 16 : 8"
+            v-for="item in formModel"
+            :key="item.name"
+          >
             <!-- 省市选择组件 -->
             <el-form-item
               class="search-item"
@@ -25,7 +29,11 @@
               :label-width="item.labelWidth"
               v-if="item.type === 'cascader'"
             >
-              <el-cascader v-model="formData[item.name]" clearable :options="item.options"></el-cascader>
+              <el-cascader
+                v-model="formData[item.name]"
+                clearable
+                :options="item.options"
+              ></el-cascader>
             </el-form-item>
             <!-- 站列表动态查询组件 -->
             <el-form-item
@@ -151,9 +159,16 @@
     </div>
     <div class="operator">
       <div class="operator_l">
-        <el-button type="text" class="switch_Btn" @click="switchFlag = !switchFlag" v-if="hasFold">
-          {{ !switchFlag ? '收起' : '展开' }}
-          <i :class="[switchFlag ? 'el-icon-arrow-down' : 'el-icon-arrow-up']"></i>
+        <el-button
+          type="text"
+          class="switch_Btn"
+          @click="switchFlag = !switchFlag"
+          v-if="hasFold"
+        >
+          {{ !switchFlag ? "收起" : "展开" }}
+          <i
+            :class="[switchFlag ? 'el-icon-arrow-down' : 'el-icon-arrow-up']"
+          ></i>
         </el-button>
       </div>
       <div class="operator_r">
@@ -165,28 +180,33 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, computed, reactive, ref } from 'vue'
+import { defineComponent, computed, reactive, ref } from "vue";
 export default defineComponent({
-  name: 'mvp-search-area',
+  name: "mvp-search-area",
   props: {
     hasFold: {
       type: Boolean,
-      default: false // 是否有展开收起功能,默认设置false
+      default: false, // 是否有展开收起功能,默认设置false
     },
     rules: Object,
     formModel: Array, // 需要渲染的form组件集合
     initData: Object, // 初始化需要显示数据的字段
-    emitName: String, // emit出去的事件名
+    emitName: {
+      type: String,
+      default: "",
+    }, // emit出去的事件名
     exportModel: Object,
     isReset: {
       // 是否显示重置按钮
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   setup(props, ctx) {
     const formData: any = props.initData ? props.initData : reactive({})
-    const defaultTime: any = props.initData ? JSON.parse(JSON.stringify(props.initData)) : reactive({})
+    const defaultTime: any = props.initData
+      ? JSON.parse(JSON.stringify(props.initData))
+      : reactive({})
 
     const selectOptions = computed(() => {
       return function(item: any) {
@@ -197,23 +217,23 @@ export default defineComponent({
           })
         }
         return item.options
-      }
-    })
+      };
+    });
     const switchFlag = ref(false) // 展开收起开关
     // 省市切换清空站列表
     const changeCity = () => {
-      ctx.emit('changeCity', formData)
-    }
+      ctx.emit("changeCity", formData)
+    };
 
     const handleToggleDateType = (key: any) => {
       //组件前select切换,清空后面时分秒
-      formData[key] = ''
-    }
+      formData[key] = ""
+    };
     // 点击查询按钮
     const submitForm = () => {
       const emitName = props.emitName as string
-      ctx.emit(emitName ? emitName : 'search', formData)
-    }
+      ctx.emit(emitName ? emitName : "search", formData)
+    };
     // 重置
     const resetForm = () => {
       for (const key in formData) {
@@ -224,12 +244,12 @@ export default defineComponent({
             formData[key] = defaultTime[key]
           }
         } else {
-          formData[key] = ''
+          formData[key] = ""
         }
       }
       const emitName = props.emitName as string
-      ctx.emit(emitName ? emitName : 'resetForm', formData)
-    }
+      ctx.emit(emitName ? emitName : "resetForm", formData)
+    };
     return {
       formData,
       selectOptions,
@@ -237,10 +257,10 @@ export default defineComponent({
       changeCity,
       handleToggleDateType,
       resetForm,
-      submitForm
-    }
-  }
-})
+      submitForm,
+    };
+  },
+});
 </script>
 <style lang="less">
 .searchCon {
@@ -307,7 +327,7 @@ export default defineComponent({
           top: -1px;
           right: 0;
           display: block;
-          content: '|';
+          content: "|";
           color: #dcdcdc;
           height: 32px;
           line-height: 32px;
@@ -322,7 +342,8 @@ export default defineComponent({
       .input_item {
         flex: 1;
       }
-      /deep/ label {
+      :deep(label) {
+        min-width: 70px;
         position: relative;
         text-align: left;
         padding-left: 12px;
@@ -333,7 +354,7 @@ export default defineComponent({
           top: -1px;
           right: 0;
           display: block;
-          content: '|';
+          content: "|";
           color: #dcdcdc;
           height: 32px;
           line-height: 32px;
@@ -343,10 +364,10 @@ export default defineComponent({
           left: 4px;
         }
       }
-      /deep/ .el-form-item__error {
+      :deep(.el-form-item__error) {
         padding-top: 2px;
       }
-      /deep/ .el-form-item__content {
+      :deep(.el-form-item__content) {
         margin-left: 0 !important;
         flex: 1;
       }
