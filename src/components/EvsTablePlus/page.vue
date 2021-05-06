@@ -61,13 +61,7 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  reactive,
-  toRefs,
-  onBeforeMount,
-  onMounted
-} from 'vue'
+import { defineComponent, reactive, toRefs, onBeforeMount, onMounted } from 'vue'
 interface Val {
   val: number | string
 }
@@ -88,10 +82,10 @@ export default defineComponent({
           hidePage: false,
           prevText: '上一页',
           nextText: '下一页',
-          homePage: true
+          homePage: true,
         }
-      }
-    }
+      },
+    },
   },
   emits: ['handelUpdataPage'],
   setup(props: any, { emit }: any) {
@@ -100,7 +94,7 @@ export default defineComponent({
       console.log(props.pageOtions.page, 'children--table')
       emit('handelUpdataPage', {
         value: 'index',
-        page: 1
+        page: 1,
       })
     }
     // 返回尾页
@@ -109,30 +103,30 @@ export default defineComponent({
       console.log(pageIndex, 'children--table')
       emit('handelUpdataPage', {
         value: 'last',
-        page: pageIndex
+        page: pageIndex,
       })
     }
     // 点击上下切换
     const handleCurrentChange = (val: Val) => {
       emit('handelUpdataPage', {
         value: 'about',
-        page: val
+        page: val,
       })
     }
     //点击页数也换
     const handleSizeChange = (val: Val) => {
       emit('handelUpdataPage', {
         value: 'size',
-        page: val
+        page: val,
       })
     }
     return {
       indexPage,
       lastPage,
       handleSizeChange,
-      handleCurrentChange
+      handleCurrentChange,
     }
-  }
+  },
 })
 </script>
 <style scoped lang="less">
@@ -168,5 +162,11 @@ export default defineComponent({
 
 .el-pagination {
   text-align: center;
+  margin-top: 24px;
+  white-space: nowrap;
+  color: #303133;
+  font-weight: 700;
+  display: flex;
+  justify-content: flex-end;
 }
 </style>
