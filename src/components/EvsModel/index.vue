@@ -1,9 +1,7 @@
 <!--  -->
 <template>
   <div class="model">
-    <el-button v-if="actionBtnText" type="primary" plain @click="showModel">{{
-      actionBtnText
-    }}</el-button>
+    <el-button v-if="actionBtnText" type="primary" plain @click="showModel">{{ actionBtnText }}</el-button>
     <el-dialog
       :model-value="modelIsFlag"
       :width="propsWidth"
@@ -13,10 +11,7 @@
       @close="closeModel"
     >
       <template #title>
-        <div
-          class="model-title"
-          :style="[titleAlignActive, titleCssTextActive]"
-        >
+        <div class="model-title" :style="[titleAlignActive, titleCssTextActive]">
           {{ title }}
         </div>
       </template>
@@ -66,7 +61,8 @@ export default defineComponent({
       type: [String, Number],
       default: '684',
     },
-    actionBtnText: {// 是否显示按钮如果要显示就要传入按钮
+    actionBtnText: {
+      // 是否显示按钮如果要显示就要传入按钮
       type: String,
       default: '',
     },
@@ -121,7 +117,8 @@ export default defineComponent({
     const btnAlignAction = computed(() => {
       return 'text-align:' + props.btnAlign
     })
-    const propsWidth = computed(() => { // model width 不能设置 如下 3个 宽度
+    const propsWidth = computed(() => {
+      // model width 不能设置 如下 3个 宽度
       if (['456', '684', '1140'].indexOf(props.width) != -1) {
         return `${props.width}px`
       } else {
@@ -151,15 +148,22 @@ export default defineComponent({
     }
     const btnModelAction = (item: any) => {
       let code: string = item.method
-      switch (code) {
-        case 'cancel':
-          emit('handleCloseModel', false)
-          break
-        case 'action':
-          emit('handleComfirm')
-          break
-        default:
-          console.error('参数传入有误')
+      // switch (code) {
+      //   case 'cancel':
+      //     emit('handleCloseModel', false)
+      //     break
+      //   case 'action':
+      //     emit('handleComfirm')
+      //     break
+      //   default:
+      //     console.error('参数传入有误')
+      // }
+      if (code == 'cancel') {
+        emit('handleCloseModel', false)
+      } else if (code == 'action') {
+        emit('handleComfirm')
+      } else {
+        emit(`${code}`, item)
       }
     }
     return {
