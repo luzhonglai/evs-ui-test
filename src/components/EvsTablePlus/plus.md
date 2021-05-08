@@ -123,7 +123,12 @@ export const tableColumns: any = [
     label: '姓名',
     width: 150,
     align: 'center',
-    sortable: false
+    sortable: false,
+    fixed:'' // 是否固定该列 true false  默认 false
+    header-align：'' //表头对齐方式，若不设置该项，则使用表格的对齐方式
+    formatter：'' // 是否格式化该列的数据 传入一个 function，
+    className：'' // 列的 className
+    label-class-name:'' // 当前列标题的自定义类名
   },
   {
     prop: 'age',
@@ -137,7 +142,7 @@ export const tableColumns: any = [
     label: '头像',
     width: 150,
     sortable: false,
-    image: true
+    image: true // 是否开启图片
   },
   {
     prop: 'sex',
@@ -252,10 +257,32 @@ export const tableOptions: any = {
   minWidth: '50', // 最小宽度
   align: 'center', // 对齐方式
   headerAlign: '', // 表头对齐 不设置 默认使用表格的 align
-  btnOptions: [
-    // 操作按钮组
-    { label: '预览', type: 'text', icon: 'el-icon-view', method: 'showDetail' },
-    { label: '审核', type: 'text', color: 'red', icon: '', method: 'verify' }
+  btnOptions: {
+      label: '重发', type: 'text', icon: 'el-icon-view', method: 'edit', status: {
+        disabledKey: 'disabled', // 是否禁用按钮字段
+        disabledVal: 0  // 字段的值 转换为 Boolaen  列： list返回‘disabled’ 字段值为 true 那么 按钮如果要禁用  则设置为相反值
+      },
+    },
+    {
+      label: '操作日志',
+      type: 'text',
+      icon: '',
+      method: 'actionText',
+      status: {
+        key: 'status',
+        show: 1,
+        disabledKey: 'disabled',
+        disabledVal: false
+      },
+      render: function (scope: any, item: any) {
+        let code = scope.row.status
+        if (code == 0) {
+          return '操作日志'
+        } else if (code == 1) {
+          return '关闭'
+        }
+      }
+    }
   ]
 }
 // 模拟的表格数据
@@ -293,6 +320,6 @@ export const pagination: any = {
   btnType: '', // 首页尾页按钮type 类型参考 element button type 默认 primary
   hidePage: false, // total === 1  时 是否显示分页
   prevText: '', // 左右切换按钮文字 可以为空
-  nextText: '下一页', //
+  nextText: '下一页', //右切换按钮文字 可以为空
   homePage: true // 是否开启首页 和尾页 按钮显示
 }

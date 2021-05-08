@@ -119,12 +119,12 @@
           <div
             v-for="(item, index) in tableOptions.btnOptions"
             :key="index"
-            style="display:inline-block;margin-left:5px"
+            style="display: inline-block; margin-left: 5px"
           >
             <el-button
               v-if="item.status?.show === scope.row[item.status?.key]"
               :disabled="
-                scope.row.disabled && scope.row.disabled.indexOf(index) !== -1
+                !!item.status?.disabledVal === scope.row[item.status?.disabledKey] 
               "
               :type="item.type ? item.type : 'primary'"
               :icon="item.icon ? item.icon : ''"
@@ -154,13 +154,13 @@ import {
   toRefs,
   onBeforeMount,
   onMounted,
-  computed
+  computed,
 } from 'vue'
 import Page from './page.vue'
 export default defineComponent({
-  name: 'table-plus',
+  name: 'EvsTablePlus',
   components: {
-    Page
+    Page,
   },
   props: {
     number: { type: Boolean, default: true },
@@ -174,7 +174,7 @@ export default defineComponent({
       type: Object,
       default: () => {
         return {}
-      }
+      },
     },
     paginations: {
       type: Object,
@@ -190,23 +190,24 @@ export default defineComponent({
           hidePage: false,
           prevText: '上一页',
           nextText: '下一页',
-          homePage: true
+          homePage: true,
         }
-      }
+      },
     },
-    border: { type: Boolean, default: false }
+    border: { type: Boolean, default: false },
   },
   emits: [
     'handleButton',
     'handleSortChange',
     'handleChangePage',
     'handleSelectionChange',
-    'handleRadioChange'
+    'handleRadioChange',
   ],
   setup(props: any, ctx: any) {
     const radioModel = ref(1)
     const { emit, attrs } = ctx // 获取context 解构
     //返回新的分页信息
+    console.log(props.paginations)
     const pageinations = computed(() => {
       // 使用计算属性 监听动态的 page options
       return {
@@ -220,8 +221,7 @@ export default defineComponent({
         hidePage: props.paginations.hidePage,
         prevText: props.paginations.prevText,
         nextText: props.paginations.nextText,
-        homePage:
-          props.paginations.page == props.paginations.total ? false : true
+        homePage: props.paginations.homePage,
       }
     })
     console.log(pageinations, 'computed---pages')
@@ -254,11 +254,10 @@ export default defineComponent({
       handleSelectionChange, // 多选
       pageinations, // page
       handleRadioChange, // 单选
-      updataPage // 分页
+      updataPage, // 分页
     }
-  }
+  },
 })
 </script>
 
-<style lang="less" scoped>
-</style>
+<style lang="less" scoped></style>

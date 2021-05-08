@@ -1,167 +1,226 @@
 <!--  -->
 <template>
   <div class="model">
-    <el-button v-if="actionBtnText" type="primary" plain @click="showModel">{{ actionBtnText }}</el-button>
+    <el-button v-if="actionBtnText" type="primary" plain @click="showModel">{{
+      actionBtnText
+    }}</el-button>
     <el-dialog
       :model-value="modelIsFlag"
-      :width="width"
+      :width="propsWidth"
       v-bind="attrs"
       :show-close="showCloseIcon"
       :destroy-on-close="destrorOnClose"
-      :append-to-body="appendToBody"
       @close="closeModel"
     >
       <template #title>
-        <div class="model-title" :style="[titleAlignActive, titleCssTextActive]">
+        <div
+          class="model-title"
+          :style="[titleAlignActive, titleCssTextActive]"
+        >
           {{ title }}
         </div>
       </template>
       <template v-if="titleComponent">
-        <div v-for="item in titleComponent" :key="item" class="vfor-title">
-          <EvsTitle :item-title="item.title" :is-class="item.isClass">
+        <div class="vfor-title" v-for="item in titleComponent" :key="item">
+          <EvsTitle :itemTitle="item.title" :isClass="item.isClass">
             <slot :name="item.slot"></slot>
           </EvsTitle>
         </div>
       </template>
       <slot></slot>
-      <slot name="footer"></slot>
+      <slot name="footer">
+        <div :style="btnAlignAction">
+          <slot name="custom"></slot>
+          <el-button
+            v-for="(item, index) in btnOptions"
+            :key="index"
+            :type="item?.type"
+            :plain="item.plain"
+            @click="btnModelAction(item)"
+            >{{ item.text }}</el-button
+          >
+        </div>
+      </slot>
     </el-dialog>
   </div>
 </template>
 
 <script lang="ts">
-  import EvsTitle from './title.vue'
-  import { defineComponent, onBeforeMount, onMounted, computed } from 'vue'
-  export default defineComponent({
-    name: 'EvsModel',
-    components: {
-      EvsTitle,
+import EvsTitle from './title.vue'
+import { defineComponent, onBeforeMount, onMounted, computed } from 'vue'
+export default defineComponent({
+  name: 'EvsModel',
+  components: {
+    EvsTitle,
+  },
+  props: {
+    modelIsFlag: {
+      type: Boolean,
+      default: false,
     },
-    props: {
-      modelIsFlag: {
-        type: Boolean,
-        default: false,
-      },
-      title: {
-        type: [String, Number],
-        default: '提示',
-      },
-      width: {
-        type: [String, Number],
-        default: () => {
-          return '50%'
-        },
-      },
-      actionBtnText: {
-        type: String,
-        default: '',
-      },
-      destrorOnClose: {
-        type: Boolean,
-        default: true,
-      },
-      appendToBody: {
-        type: Boolean,
-        default: false,
-      },
-      titleAlign: {
-        type: String,
-        default: 'left',
-      },
-      titleCssText: {
-        //  模态框标题 自定义颜色大小对齐方式
-        type: [Object, Array],
-        default: () => {
-          return {}
-        },
-      },
-      titleComponent: {
-        type: [Object, Array],
-        default: () => {
-          return []
-        },
+    title: {
+      type: [String, Number],
+      default: '提示',
+    },
+    width: {
+      type: [String, Number],
+      default: '684',
+    },
+    actionBtnText: {// 是否显示按钮如果要显示就要传入按钮
+      type: String,
+      default: '',
+    },
+    destrorOnClose: {
+      type: Boolean,
+      default: true,
+    },
+    titleAlign: {
+      type: String,
+      default: 'left',
+    },
+    titleCssText: {
+      //  模态框标题 自定义颜色大小对齐方式
+      type: [Object, Array],
+      default: () => {
+        return {}
       },
     },
-    emits: ['handleComfirm', 'handleShowModel', 'handleCloseModel'],
-    setup(props: any, { emit, attrs }: any) {
-      const titleAlign = props.titleAlign // 标题对齐方式
-      const titleCssTextActive = props.titleCssText // 标题文字css 自定义
-      const titleAlignActive = computed(() => {
-        // title 文字 对齐方式
-        return 'text-align:' + props.titleAlign
-      })
-      const showCloseIcon = computed(() => {
-        // 按钮右对齐 ，隐藏关闭按钮
-        if (titleAlign == 'right') {
-          return false
-        } else {
-          return true
-        }
-      })
-      onBeforeMount(() => {})
-      onMounted(() => {})
-      const showModel = () => {
-        // 显示
-        emit('handleShowModel', true)
-      }
-      const closeModel = () => {
-        // 关闭
-        emit('handleCloseModel', false)
-      }
-      const handleAction = () => {
-        emit('handleComfirm')
-      }
-      return {
-        attrs,
-        showModel,
-        closeModel,
-        titleAlignActive,
-        showCloseIcon,
-        titleCssTextActive,
-        handleAction,
-      }
+    titleComponent: {
+      type: [Object, Array],
+      default: () => {
+        return []
+      },
     },
-  })
+    btnAlign: {
+      type: [String],
+      default: 'right',
+    },
+    btnOptions: {
+      type: [Object, Array],
+      default: () => {
+        return [
+          {
+            type: 'default',
+            text: '取消',
+            plain: true,
+            method: 'cancel',
+          },
+          {
+            type: 'primary',
+            text: '确认',
+            method: 'action',
+          },
+        ]
+      },
+    },
+  },
+  emits: ['handleComfirm', 'handleShowModel', 'handleCloseModel'],
+  setup(props: any, { emit, attrs }: any) {
+    const titleAlign = props.titleAlign // 标题对齐方式
+    const titleCssTextActive = props.titleCssText // 标题文字css 自定义
+    const btnAlignAction = computed(() => {
+      return 'text-align:' + props.btnAlign
+    })
+    const propsWidth = computed(() => { // model width 不能设置 如下 3个 宽度
+      if (['456', '684', '1140'].indexOf(props.width) != -1) {
+        return `${props.width}px`
+      } else {
+        console.error('prop  "width" is 456,684,1140')
+        return '684px'
+      }
+    })
+    const titleAlignActive = computed(() => {
+      // title 文字 对齐方式
+      return 'text-align:' + props.titleAlign
+    })
+    const showCloseIcon = computed(() => {
+      // 按钮右对齐 ，隐藏关闭按钮
+      if (titleAlign == 'right') {
+        return false
+      } else {
+        return true
+      }
+    })
+    const showModel = () => {
+      // 显示
+      emit('handleShowModel', true)
+    }
+    const closeModel = () => {
+      // 关闭
+      emit('handleCloseModel', false)
+    }
+    const btnModelAction = (item: any) => {
+      let code: string = item.method
+      switch (code) {
+        case 'cancel':
+          emit('handleCloseModel', false)
+          break
+        case 'action':
+          emit('handleComfirm')
+          break
+        default:
+          console.error('参数传入有误')
+      }
+    }
+    return {
+      propsWidth,
+      attrs,
+      showModel,
+      closeModel,
+      btnAlignAction,
+      titleAlignActive,
+      showCloseIcon,
+      titleCssTextActive,
+      btnModelAction,
+    }
+  },
+})
 </script>
 <style scoped lang="less">
-  .model {
-    .model-title {
-      height: 56px;
-      text-align: left;
-      border-bottom: 1px solid #dcdcdc;
+.model {
+  .model-title {
+    height: 56px;
+    text-align: left;
+    border-bottom: 1px solid #dcdcdc;
+  }
+  .btn {
+    display: inline-block;
+  }
+  ::v-deep {
+    @buttonColor: #5587f0;
+    .el-button {
+      min-height: 36px !important;
+      line-height: 0 !important;
+      height: 36px !important;
     }
-    v-deep {
-      @buttonColor: #5587f0;
-      .el-button {
-        min-height: 36px !important;
-        line-height: 0 !important;
-        height: 36px !important;
-      }
-      .el-button--primary {
-        color: #fff !important;
-        border-radius: 2px;
+    .el-button + .el-button {
+      margin-left: 16px;
+    }
+    .el-button--primary {
+      color: #fff !important;
+      border-radius: 2px;
+      background-color: @buttonColor !important;
+      border-color: @buttonColor !important;
+      &:hover {
         background-color: @buttonColor !important;
+      }
+      .is-plain {
+        background: @buttonColor !important;
         border-color: @buttonColor !important;
         &:hover {
           background-color: @buttonColor !important;
         }
-        .is-plain {
-          background: @buttonColor !important;
-          border-color: @buttonColor !important;
-          &:hover {
-            background-color: @buttonColor !important;
-          }
-          &:focus {
-            background-color: @buttonColor !important;
-          }
+        &:focus {
+          background-color: @buttonColor !important;
         }
       }
-      .el-button--default {
-        color: @buttonColor;
-        border-radius: 2px;
-        border: 1px solid;
-        border-color: @buttonColor;
-      }
+    }
+    .el-button--default {
+      color: @buttonColor;
+      border-radius: 2px;
+      border: 1px solid;
+      border-color: @buttonColor;
     }
   }
+}
 </style>
