@@ -75,6 +75,22 @@ export default defineComponent({
     //更新分页
     const updataPage = (val: number) => {
       console.log(val)
+      val = {
+        value:'first', // 分页按钮 首页
+        page:1, // 返回的页数
+      }
+      val = {
+        value:'about', // 分页按钮 左右分页
+        page:1, // 返回的页数
+      }
+      val = {
+        value:'last', // 分页按钮 尾页
+        page:1, // 返回的页数
+      }
+      val = {
+        value:'size', // 分页按钮 切换页数
+        page:1, // 返回的页数
+      }
     }
     // 单选返回数据
     const radioChange = (val: any, model: any) => {

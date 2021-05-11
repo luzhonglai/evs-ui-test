@@ -35,11 +35,7 @@
         width="55"
       >
         <template #default="scope">
-          <el-radio
-            :label="scope.$index"
-            v-model="radioModel"
-            @change="handleRadioChange(scope.row, radioModel)"
-          >
+          <el-radio :label="scope.$index" v-model="radioModel" @change="handleRadioChange(scope.row, radioModel)">
             <div style="display: none">{{ scope.row.casherName }}</div>
           </el-radio>
         </template>
@@ -73,17 +69,11 @@
         "
         :class-name="item.className ? item.className : ''"
         :label-class-name="item.lableClassName ? item.labelClassName : ''"
-        :sortable="
-          typeof item.sortable === 'boolean' ? item.sortable : 'custom'
-        "
+        :sortable="typeof item.sortable === 'boolean' ? item.sortable : 'custom'"
         show-overflow-tooltip
       >
         <template #default="scope">
-          <span
-            v-if="item.render"
-            :style="`color: ${item.color}`"
-            v-html="item.render(scope)"
-          ></span>
+          <span v-if="item.render" :style="`color: ${item.color}`" v-html="item.render(scope)"></span>
           <span v-else-if="item.image">
             <!--加入图片预览-->
             <el-tooltip placement="right">
@@ -99,9 +89,7 @@
               <el-button type="primary" size="mini">预览</el-button>
             </el-tooltip>
           </span>
-          <span :style="`color: ${item.color}`" v-else>{{
-            scope.row[item.prop]
-          }}</span>
+          <span :style="`color: ${item.color}`" v-else>{{ scope.row[item.prop] }}</span>
         </template>
       </el-table-column>
       <!--操作按钮-->
@@ -123,17 +111,14 @@
           >
             <el-button
               v-if="item.status?.show === scope.row[item.status?.key]"
-              :disabled="
-                !!item.status?.disabledVal === scope.row[item.status?.disabledKey] 
-              "
+              :disabled="!!item.status?.disabledVal === scope.row[item.status?.disabledKey]"
               :type="item.type ? item.type : 'primary'"
               :icon="item.icon ? item.icon : ''"
               :style="`color: ${item.color}`"
               @click="handleButton(item.method, scope.row, scope.$index)"
               size="mini"
             >
-              <span v-if="item.render" v-html="item.render(scope, item)">
-              </span>
+              <span v-if="item.render" v-html="item.render(scope, item)"> </span>
               <span v-else>{{ item.label }}</span>
             </el-button>
           </div>
@@ -147,15 +132,7 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  ref,
-  reactive,
-  toRefs,
-  onBeforeMount,
-  onMounted,
-  computed,
-} from 'vue'
+import { defineComponent, ref, reactive, toRefs, onBeforeMount, onMounted, computed } from 'vue'
 import Page from './page.vue'
 export default defineComponent({
   name: 'EvsTablePlus',
@@ -196,13 +173,7 @@ export default defineComponent({
     },
     border: { type: Boolean, default: false },
   },
-  emits: [
-    'handleButton',
-    'handleSortChange',
-    'handleChangePage',
-    'handleSelectionChange',
-    'handleRadioChange',
-  ],
+  emits: ['handleButton', 'handleSortChange', 'handleChangePage', 'handleSelectionChange', 'handleRadioChange'],
   setup(props: any, ctx: any) {
     const radioModel = ref(1)
     const { emit, attrs } = ctx // 获取context 解构
@@ -260,4 +231,32 @@ export default defineComponent({
 })
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.table-plus {
+  ::-webkit-scrollbar-track-piece {
+    background-color: #fff;
+    -webkit-border-radius: 0;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    height: 50px;
+    background-color: #b8b8b8;
+    -webkit-border-radius: 6px;
+    outline: 2px solid #fff;
+    outline-offset: -2px;
+    border: 2px solid #fff;
+    // filter: alpha(opacity = 50);
+    -moz-opacity: 0.5;
+    -khtml-opacity: 0.5;
+    opacity: 0.5;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    height: 50px;
+    background-color: #878987;
+    -webkit-border-radius: 6px;
+  }
+}
+</style>
