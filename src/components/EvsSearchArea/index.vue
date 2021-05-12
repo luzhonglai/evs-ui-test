@@ -1,7 +1,7 @@
 <template>
   <div class="searchCon" :class="{ fold: switchFlag }">
     <div class="searchArea">
-      <el-form :model="formData" :rules="rules" size="mini">
+      <el-form :model="formData" :rules="rules" size="mini" ref="refFrom">
         <el-row :gutter="20">
           <el-col v-for="item in formModel" :key="item.name" :span="item.type == 'datetimerange' ? 16 : 8">
             <!-- 省市选择组件 -->
@@ -90,6 +90,7 @@
                 :end-placeholder="item.endPlaceholder"
                 style="width: 100%"
                 :default-time="item.defaultTime"
+                :disabledDate="disabledDate"
               ></el-date-picker>
             </el-form-item>
             <!-- 时分秒时间组件前面带选择下拉 selName为前面下拉字段名 -->
@@ -124,6 +125,7 @@
                   :end-placeholder="item.endPlaceholder"
                   style="width: 100%"
                   :default-time="item.defaultTime"
+                  :disabledDate="disabledDate"
                 ></el-date-picker>
               </div>
             </div>
@@ -143,6 +145,7 @@
                 :end-placeholder="item.endPlaceholder"
                 style="width: 100%"
                 :shortcuts="item.shortcuts"
+                :disabledDate="disabledDate"
               ></el-date-picker>
             </el-form-item>
           </el-col>
@@ -188,6 +191,7 @@ export default defineComponent({
     },
   },
   setup(props, ctx) {
+    const refFrom: any = ref('')
     const formData: any = props.initData ? props.initData : reactive({})
     const defaultTime: any = props.initData ? JSON.parse(JSON.stringify(props.initData)) : reactive({})
 
@@ -214,8 +218,17 @@ export default defineComponent({
     }
     // 点击查询按钮
     const submitForm = () => {
-      const emitName: string = props.emitName as string
-      ctx.emit(emitName ? emitName : 'search', formData)
+       refFrom.value.validate(async (result: boolean) => {
+         if (result) {
+           const emitName: string = props.emitName as string
+           ctx.emit(emitName ? emitName : 'search', formData)
+         }
+         
+       })
+      
+    }
+    const disabledDate = (time: any): any=> {
+        return  Date.now() <= time.getTime()
     }
     // 重置
     const resetForm = () => {
@@ -234,8 +247,10 @@ export default defineComponent({
       ctx.emit(emitName ? emitName : 'resetForm', formData)
     }
     return {
+      refFrom,
       formData,
       selectOptions,
+      disabledDate,
       switchFlag,
       changeCity,
       handleToggleDateType,
@@ -385,6 +400,7 @@ export default defineComponent({
     :deep(button) {
       margin-left: 10px!important;
       margin-bottom: 12px!important;
+      float: left;
     }
   }
 }
