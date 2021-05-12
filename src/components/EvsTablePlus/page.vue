@@ -203,7 +203,7 @@ export default defineComponent({
   }
 
   .page-right {
-    right: 108px;
+    right: 118px;
   }
   /deep/.el-pagination .el-select .el-input {
     width: 88px;
@@ -222,7 +222,7 @@ export default defineComponent({
       border-radius: 3px;
     }
    .el-pagination__jump{
-      margin-left: 60px;
+      margin-left: 65px;
     }
     .btn-prev,
     .btn-next {
