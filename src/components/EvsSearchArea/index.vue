@@ -416,7 +416,6 @@ export default defineComponent({
     :deep(button) {
       margin-left: 10px!important;
       margin-bottom: 12px!important;
-      float: left;
     }
   }
 }
