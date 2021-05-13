@@ -4,7 +4,7 @@
  * @Author: ZhongLai Lu
  * @Date: 2021-03-31 17:18:17
  * @LastEditors: Zhonglai Lu
- * @LastEditTime: 2021-04-27 10:33:21
+ * @LastEditTime: 2021-05-13 14:01:50
 -->
 
 <template>
@@ -14,27 +14,38 @@
       v-if="data"
       v-loading="loading"
       :data="data.data"
-      style="width:100%; margin-top:18px"
       :border="border"
       highlight-current-row
       tooltip-effect="dark"
       :element-loading-text="loadingText"
       @sort-change="handleSortChange"
       @selection-change="handleSelectionChange"
+      @cell-click="handleClickChange"
     >
       <el-table-column
         v-for="(item, index) in data.tableColumn"
         :key="index"
-        :prop="item.prop"
-        :label="item.label || '没有配置lable'"
+        :prop="item.prop || ''"
+        :label="item.label || ''"
         :width="item.width || ''"
-      />
+        :type="item.type || ''"
+        :index="indexMethod"
+        :fixed="item.fixed || ''"
+        :align="item.align || 'left'"
+      >
+        <template v-if="item.scope || false" #default="scope"> <slot name="scope" /> </template>
+      </el-table-column>
     </el-table>
 
+    <!-- 自定义item -->
+    <slot name="column"></slot>
+
+    <!-- 自定义table-list -->
     <slot name="table"></slot>
 
     <!-- 分页控件 -->
     <el-pagination
+      v-if="pagination"
       layout="total, sizes, prev, pager, next, jumper"
       :current-page="pagination.currentPage"
       :page-sizes="pagination.pageSizes || [5, 10, 15, 30, 50]"
@@ -81,6 +92,10 @@
         /* 多选 当选择项发生变化时会触发该事件 selection*/
         handleSelectionChange(val: any) {
           emit('selection-change', val)
+        },
+        // cell-click
+        handleClickChange(row, column, cell, event) {
+          emit('cell-click', row, column, cell, event)
         },
       }
 
