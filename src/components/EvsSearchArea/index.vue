@@ -52,6 +52,22 @@
                 :placeholder="item.placeholder"
               ></el-input>
             </el-form-item>
+            <!-- 单选日期组件 -->
+            <el-form-item
+              v-if="item.type === 'date'"
+              class="search-item"
+              :label="item.label"
+              :label-width="item.labelWidth"
+              :prop="item.name"
+            >
+              <el-date-picker
+                v-model="formData[item.name]"
+                :placeholder="item.placeholder"
+                :clearable="true"
+                :default-time="item.defaultTime"
+                :disabledDate="disabledDate">
+              </el-date-picker>
+            </el-form-item>
             <!-- select组件 -->
             <el-form-item
               v-if="item.type === 'select'"
@@ -400,7 +416,6 @@ export default defineComponent({
     :deep(button) {
       margin-left: 10px!important;
       margin-bottom: 12px!important;
-      float: left;
     }
   }
 }
