@@ -196,6 +196,14 @@ export default defineComponent({
       height: 28px !important;
       min-height: 28px !important;
     }
+    ::v-deep(.el-button--default) {
+      height: 28px !important;
+      min-height: 28px !important;
+    }
+     ::v-deep(.el-button) {
+      height: 28px !important;
+      min-height: 28px !important;
+    }
   }
 
   .page-left {
