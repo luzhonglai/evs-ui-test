@@ -162,6 +162,7 @@
                 style="width: 100%"
                 :shortcuts="item.shortcuts"
                 :disabledDate="disabledDate"
+                :clearable="item.clearable"
               ></el-date-picker>
             </el-form-item>
           </el-col>
