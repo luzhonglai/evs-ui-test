@@ -4,7 +4,7 @@
  * @Author: ZhongLai Lu
  * @Date: 2021-03-31 17:18:17
  * @LastEditors: Zhonglai Lu
- * @LastEditTime: 2021-05-13 14:01:50
+ * @LastEditTime: 2021-06-04 16:58:51
 -->
 
 <template>
@@ -12,6 +12,7 @@
     <!-- 表格 -->
     <el-table
       v-if="data"
+      ref="tableRef"
       v-loading="loading"
       :data="data.data"
       :border="border"
@@ -33,7 +34,7 @@
         :fixed="item.fixed || ''"
         :align="item.align || 'left'"
       >
-        <template v-if="item.scope || false" #default="scope"> <slot name="scope" /> </template>
+        <template v-if="item.scope || false" #default="scope"> <slot name="scope" :scope="scope" /> </template>
       </el-table-column>
     </el-table>
 
@@ -71,8 +72,6 @@
     },
 
     setup(props, { emit }) {
-      const data = reactive({})
-
       const methods: any = {
         /* pageSize 改变时会触发	每页条数 */
         handleSizeChange(Option: object) {
@@ -97,10 +96,12 @@
         handleClickChange(row, column, cell, event) {
           emit('cell-click', row, column, cell, event)
         },
+        clearSelection() {
+          this.$refs.tableRef.clearSelection()
+        },
       }
 
       return {
-        ...toRefs(data),
         ...methods,
       }
     },
