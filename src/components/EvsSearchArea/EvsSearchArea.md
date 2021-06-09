@@ -3,7 +3,7 @@
  * @Author: Jiang Peng
  * @Date: 2021-03-30 10:44:38
  * @LastEditors: Jiang Peng
- * @LastEditTime: 2021-04-14 15:03:32
+ * @LastEditTime: 2021-06-09 17:04:36
 -->
 
 ## 页面搜索域组件开发规范
@@ -14,16 +14,17 @@
 
 组件调用参数
 
-> formModel 为渲染 form 表单类型对象 exportModel 为导出参数 initData 为设置页面加载后默认显示的数据 hasFold 是否显示展开收起功能，默认 false 不显示 isReset 是否显示重置按钮，默认组件显示该按钮 handleSearch 组件里面查询后回调方法
+> formModel 为渲染 form 表单类型对象 exportModel 为导出参数 initData 为设置页面加载后默认显示的数据 hasFold 是否显示展开收起功能，默认 false 不显示 isReset 是否显示重置按钮，默认组件显示该按钮 handleSearch 组件里面查询后回调方法 
 
 ```html
 <EvsSearchArea
   :formModel="formModel"
   :exportModel="exportModel"
-  :initData="initData"
-  :hasFold="hasFold"
-  :isReset="false"
-  @search="handleSearch"
+  :initData="initData" // 为设置页面加载后默认显示的数据
+  :hasFold="hasFold" // 是否显示展开收起功能，默认false
+  :isReset="false"  // 是否显示重置按钮
+  @search="handleSearch"  // 查询回调函数
+  @resetForm="handleRest" // 重置回调函数
 >
   <!-- 这里是站列表懒加载组件，如果需要,slot传入 -->
   <template v-slot:selectStation>
@@ -63,6 +64,23 @@ formModel 对象详解
         placeholder: '请输入'
       },
       {
+        selName: 'type', // input前面带下拉框类型name，普通时间组件不需要设置
+        name: 'inputName',
+        labelWidth: '90px',
+        type: 'input',
+        placeholder: '请输入',
+        options: [  // select下拉option，普通时间组件不需要设置
+          {
+            value: 1,
+            label: 'option1'
+          },
+          {
+            value: 2,
+            label: 'option2'
+          }
+        ]
+      }
+      {
         name: 'stakeType',
         label: '桩类型',
         type: 'select',
@@ -89,14 +107,24 @@ formModel 对象详解
         options: []
       },
       {
-        selName: 'type', // 普通时间组件不需要设置
+        selName: 'type', // 时间组件前面带下拉，普通时间组件不需要设置
         name: 'time',
         label: '故障开始时间',
         type: 'datetimerange',
         rangeSeparator: '~',
         startPlaceholder: '时间范围起',
         endPlaceholder: '时间范围止',
-        defaultTime: [new Date(2000, 1, 1, 0, 0, 0), new Date(2000, 1, 1, 23, 59, 59)]
+        defaultTime: [new Date(2000, 1, 1, 0, 0, 0), new Date(2000, 1, 1, 23, 59, 59)]，
+        options: [  // select下拉option,普通时间组件不需要设置
+          {
+            value: 1,
+            label: 'option1'
+          },
+          {
+            value: 2,
+            label: 'option2'
+          }
+        ]
       },
       {
         name: 'time',
