@@ -39,7 +39,7 @@
             </el-form-item>
             <!-- input组件 -->
             <el-form-item
-              v-if="item.type === 'input'"
+              v-if="item.type === 'input'&& !item.selName"
               class="search-item"
               :label="item.label"
               :label-width="item.labelWidth"
@@ -52,6 +52,37 @@
                 :placeholder="item.placeholder"
               ></el-input>
             </el-form-item>
+            <!-- input前面加下拉菜单 -->
+            <div
+              v-if="item.type === 'input' && item.selName"
+              class="search-item"
+              :label="item.label"
+              :label-width="item.labelWidth"
+              :prop="item.name"
+            >
+              <div class="label_name" :class="item.selName ? 'group' : ''">
+                <el-select
+                  v-model="formData[item.selName]"
+                  placeholder="请选择"
+                  @change="handleToggleDateType(item.name)"
+                >
+                  <el-option
+                    v-for="option in selectOptions(item)"
+                    :key="option.label"
+                    :label="option.label"
+                    :value="option.value"
+                  ></el-option>
+                </el-select>
+              </div>
+              <div class="input_item">
+                <el-input
+                v-model="formData[item.name]"
+                style="width: 100%"
+                clearable
+                :placeholder="item.placeholder"
+              ></el-input>
+              </div>
+            </div>
             <!-- 单选日期组件 -->
             <el-form-item
               v-if="item.type === 'date'"
