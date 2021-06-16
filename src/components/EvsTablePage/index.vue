@@ -4,7 +4,7 @@
  * @Author: ZhongLai Lu
  * @Date: 2021-03-31 17:18:17
  * @LastEditors: Zhonglai Lu
- * @LastEditTime: 2021-06-04 16:58:51
+ * @LastEditTime: 2021-06-16 09:51:32
 -->
 
 <template>
@@ -16,6 +16,7 @@
       v-loading="loading"
       :data="data.data"
       :border="border"
+      :height="height"
       highlight-current-row
       tooltip-effect="dark"
       :element-loading-text="loadingText"
@@ -33,6 +34,7 @@
         :index="indexMethod"
         :fixed="item.fixed || ''"
         :align="item.align || 'left'"
+        :formatter="item.formatter || ''"
       >
         <template v-if="item.scope || false" #default="scope"> <slot name="scope" :scope="scope" /> </template>
       </el-table-column>
@@ -59,7 +61,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, reactive, toRefs } from 'vue'
+  import { defineComponent } from 'vue'
 
   export default defineComponent({
     name: 'EvsTablePage',
@@ -69,6 +71,7 @@
       loading: { type: Boolean, default: false },
       border: { type: Boolean, default: true },
       loadingText: { type: String, default: '数据加载中...' },
+      height: { type: String, default: '' },
     },
 
     setup(props, { emit }) {
