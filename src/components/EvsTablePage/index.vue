@@ -4,7 +4,7 @@
  * @Author: ZhongLai Lu
  * @Date: 2021-03-31 17:18:17
  * @LastEditors: Zhonglai Lu
- * @LastEditTime: 2021-06-16 09:51:32
+ * @LastEditTime: 2021-06-21 13:56:23
 -->
 
 <template>
@@ -71,7 +71,7 @@
       loading: { type: Boolean, default: false },
       border: { type: Boolean, default: true },
       loadingText: { type: String, default: '数据加载中...' },
-      height: { type: String, default: '' },
+      height: { type: String, default: '600' },
     },
 
     setup(props, { emit }) {
@@ -96,7 +96,7 @@
           emit('selection-change', val)
         },
         // cell-click
-        handleClickChange(row, column, cell, event) {
+        handleClickChange(row: any, column: any, cell: any, event: any) {
           emit('cell-click', row, column, cell, event)
         },
         clearSelection() {
