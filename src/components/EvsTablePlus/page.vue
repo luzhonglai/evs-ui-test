@@ -192,15 +192,15 @@ export default defineComponent({
     display: inline-block;
     position: absolute;
     // overflow: hidden;
-    ::v-deep(.el-button--primary) {
+    :-deep(.el-button--primary) {
       height: 28px !important;
       min-height: 28px !important;
     }
-    ::v-deep(.el-button--default) {
+    :deep(.el-button--default) {
       height: 28px !important;
       min-height: 28px !important;
     }
-     ::v-deep(.el-button) {
+    :deep(.el-button) {
       height: 28px !important;
       min-height: 28px !important;
     }
