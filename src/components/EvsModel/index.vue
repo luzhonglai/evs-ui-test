@@ -118,11 +118,12 @@ export default defineComponent({
       return 'text-align:' + props.btnAlign
     })
     const propsWidth = computed(() => {
-      // model width 不能设置 如下 3个 宽度
+      // model width 只能能设置 如下 3个 宽度
       if (['456', '684', '1140'].indexOf(props.width) != -1) {
         return `${props.width}px`
       } else {
-        console.error('prop  "width" is 456,684,1140')
+        let err = new Error('model  width is 456,684,1140')
+        console.error(err)
         return '684px'
       }
     })

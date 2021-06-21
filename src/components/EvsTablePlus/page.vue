@@ -121,7 +121,7 @@ export default defineComponent({
       : 'display:block;text-align:right'
     // 返回首页
     const indexPage = () => {
-      console.log(props.pageOtions.page, 'children--table')
+      // console.log(props.pageOtions.page, 'children--table')
       emit('handelUpdataPage', {
         value: 'first',
         page: 1,
@@ -130,7 +130,7 @@ export default defineComponent({
     // 返回尾页
     const lastPage = () => {
       let pageIndex = Math.ceil(props.pageOtions.total / props.pageOtions.size)
-      console.log(pageIndex, 'children--table')
+      // console.log(pageIndex, 'children--table')
       emit('handelUpdataPage', {
         value: 'last',
         page: pageIndex,
@@ -230,7 +230,7 @@ export default defineComponent({
       border-radius: 3px;
     }
    .el-pagination__jump{
-      margin-left: 65px;
+      margin-left: 75px;
     }
     .btn-prev,
     .btn-next {

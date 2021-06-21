@@ -178,7 +178,7 @@ export default defineComponent({
     const radioModel = ref(1)
     const { emit, attrs } = ctx // 获取context 解构
     //返回新的分页信息
-    console.log(props.paginations)
+    // console.log(props.paginations)
     const pageinations = computed(() => {
       // 使用计算属性 监听动态的 page options
       return {
@@ -195,7 +195,7 @@ export default defineComponent({
         homePage: props.paginations.homePage,
       }
     })
-    console.log(pageinations, 'computed---pages')
+    // console.log(pageinations, 'computed---pages')
     // 更新分页
     const updataPage = (val: object) => {
       emit('handleChangePage', val)
@@ -214,7 +214,7 @@ export default defineComponent({
     }
     //单选事件
     const handleRadioChange = (val: any, model: any) => {
-      console.log(radioModel)
+      // console.log(radioModel)
       emit('handleRadioChange', val, model)
     }
     return {

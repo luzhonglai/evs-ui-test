@@ -27,7 +27,7 @@
 ##            type: 'default',
 ##            text: '取消',
 ##            plain: true,
-##            method: 'cancel',
+##            method: 'cancel', // 返回关闭事件 handleCloseModel
 ##          },
 ##          {
 ##            type: 'primary',
