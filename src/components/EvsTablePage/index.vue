@@ -4,7 +4,7 @@
  * @Author: ZhongLai Lu
  * @Date: 2021-03-31 17:18:17
  * @LastEditors: Zhonglai Lu
- * @LastEditTime: 2021-06-21 13:56:23
+ * @LastEditTime: 2021-06-21 15:12:09
 -->
 
 <template>
@@ -31,8 +31,7 @@
         :label="item.label || ''"
         :width="item.width || ''"
         :type="item.type || ''"
-        :index="indexMethod"
-        :fixed="item.fixed || ''"
+        :fixed="item.fixed || null"
         :align="item.align || 'left'"
         :formatter="item.formatter || ''"
       >
