@@ -196,6 +196,7 @@
                 :start-placeholder="item.startPlaceholder"
                 :end-placeholder="item.endPlaceholder"
                 style="width: 100%"
+                :default-time="item.defaultTime"
                 :shortcuts="item.shortcuts"
                 :disabledDate="disabledDate"
                 :clearable="item.clearable"
