@@ -4,7 +4,7 @@
  * @Author: ZhongLai Lu
  * @Date: 2021-03-31 17:18:17
  * @LastEditors: Zhonglai Lu
- * @LastEditTime: 2021-06-21 15:12:09
+ * @LastEditTime: 2021-07-05 17:39:48
 -->
 
 <template>
@@ -25,8 +25,8 @@
       @cell-click="handleClickChange"
     >
       <el-table-column
-        v-for="(item, index) in data.tableColumn"
-        :key="index"
+        v-for="item in data.tableColumn"
+        :key="item.prop"
         :prop="item.prop || ''"
         :label="item.label || ''"
         :width="item.width || ''"
