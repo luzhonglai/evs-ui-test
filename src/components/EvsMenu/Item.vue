@@ -8,8 +8,11 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-
+import svgIcon from '../EvsSvgIcon/index.vue'
 export default defineComponent({
+  components:{
+    svgIcon
+  },
   name: 'Item',
   props: {
     icon: {
