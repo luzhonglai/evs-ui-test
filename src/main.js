@@ -14,8 +14,10 @@ import EvsSearchArea from './components/EvsSearchArea/index.vue'
 import EvsModel from './components/EvsModel/index.vue'
 import EvsTablePlus from './components/EvsTablePlus'
 import EvsMenu from './components/EvsMenu'
+import EvsSvgIcon from './components/EvsSvgIcon'
 const components = {
   SearchArea,
+  EvsSvgIcon,
   EvsTablePage,
   EvsSearchArea,
   Export,

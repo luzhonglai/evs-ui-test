@@ -60,10 +60,12 @@
               :label-width="item.labelWidth"
               :prop="item.name"
             >
-              <div class="label_name" :class="item.selName ? 'group' : ''">
+              <div class="label_name" :style="{width:item.labelWidth}" :class="item.selName ? 'group' : ''">
                 <el-select
                   v-model="formData[item.selName]"
                   placeholder="请选择"
+                  size="mini"
+                   :style="{width:item.labelWidth}"
                   @change="handleToggleDateType(item.name)"
                 >
                   <el-option
@@ -79,6 +81,7 @@
                 v-model="formData[item.name]"
                 style="width: 100%"
                 clearable
+                size="mini"
                 :placeholder="item.placeholder"
               ></el-input>
               </div>
@@ -150,6 +153,7 @@
             >
               <div class="label_name" :class="item.selName ? 'group' : ''">
                 <el-select
+                 size="mini"
                   v-model="formData[item.selName]"
                   placeholder="请选择"
                   @change="handleToggleDateType(item.name)"
@@ -164,6 +168,7 @@
               </div>
               <div class="input_item">
                 <el-date-picker
+                  size="mini"
                   v-model="formData[item.name]"
                   prefix-icon="el-icon-date"
                   type="datetimerange"
@@ -191,6 +196,7 @@
                 :start-placeholder="item.startPlaceholder"
                 :end-placeholder="item.endPlaceholder"
                 style="width: 100%"
+                :default-time="item.defaultTime"
                 :shortcuts="item.shortcuts"
                 :disabledDate="disabledDate"
                 :clearable="item.clearable"
