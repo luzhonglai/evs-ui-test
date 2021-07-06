@@ -25,7 +25,7 @@
               :label="item.label"
               :label-width="item.labelWidth"
             >
-              <el-cascader v-model="formData[item.name]" clearable :options="item.options"></el-cascader>
+              <el-cascader v-model="formData[item.name]" :props="item.optionProps" clearable :options="item.options"></el-cascader>
             </el-form-item>
             <!-- 站列表动态查询组件 -->
             <el-form-item
@@ -39,7 +39,7 @@
             </el-form-item>
             <!-- input组件 -->
             <el-form-item
-              v-if="item.type === 'input'&& !item.selName"
+              v-if="item.type === 'input' && !item.selName"
               class="search-item"
               :label="item.label"
               :label-width="item.labelWidth"
@@ -60,12 +60,12 @@
               :label-width="item.labelWidth"
               :prop="item.name"
             >
-              <div class="label_name" :style="{width:item.labelWidth}" :class="item.selName ? 'group' : ''">
+              <div class="label_name" :style="{ width: item.labelWidth }" :class="item.selName ? 'group' : ''">
                 <el-select
                   v-model="formData[item.selName]"
                   placeholder="请选择"
                   size="mini"
-                   :style="{width:item.labelWidth}"
+                  :style="{ width: item.labelWidth }"
                   @change="handleToggleDateType(item.name)"
                 >
                   <el-option
@@ -78,12 +78,12 @@
               </div>
               <div class="input_item">
                 <el-input
-                v-model="formData[item.name]"
-                style="width: 100%"
-                clearable
-                size="mini"
-                :placeholder="item.placeholder"
-              ></el-input>
+                  v-model="formData[item.name]"
+                  style="width: 100%"
+                  clearable
+                  size="mini"
+                  :placeholder="item.placeholder"
+                ></el-input>
               </div>
             </div>
             <!-- 单选日期组件 -->
@@ -99,7 +99,8 @@
                 :placeholder="item.placeholder"
                 :clearable="true"
                 :default-time="item.defaultTime"
-                :disabledDate="disabledDate">
+                :disabledDate="disabledDate"
+              >
               </el-date-picker>
             </el-form-item>
             <!-- select组件 -->
@@ -153,7 +154,7 @@
             >
               <div class="label_name" :class="item.selName ? 'group' : ''">
                 <el-select
-                 size="mini"
+                  size="mini"
                   v-model="formData[item.selName]"
                   placeholder="请选择"
                   @change="handleToggleDateType(item.name)"
@@ -272,17 +273,15 @@ export default defineComponent({
     }
     // 点击查询按钮
     const submitForm = () => {
-       refFrom.value.validate(async (result: boolean) => {
-         if (result) {
-           const emitName: string = props.emitName as string
-           ctx.emit(emitName ? emitName : 'search', formData)
-         }
-         
-       })
-      
+      refFrom.value.validate(async (result: boolean) => {
+        if (result) {
+          const emitName: string = props.emitName as string
+          ctx.emit(emitName ? emitName : 'search', formData)
+        }
+      })
     }
-    const disabledDate = (time: any): any=> {
-        return  Date.now() <= time.getTime()
+    const disabledDate = (time: any): any => {
+      return Date.now() <= time.getTime()
     }
     // 重置
     const resetForm = () => {
@@ -451,9 +450,12 @@ export default defineComponent({
   .operator_r {
     width: 170px;
     float: right;
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row wrap;
     :deep(button) {
-      margin-left: 10px!important;
-      margin-bottom: 12px!important;
+      margin-left: 10px !important;
+      margin-bottom: 12px !important;
     }
   }
 }

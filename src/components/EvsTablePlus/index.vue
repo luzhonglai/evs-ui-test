@@ -96,7 +96,7 @@
       <el-table-column
         v-if="tableOptions.isAction"
         :fixed="tableOptions.actionfixed"
-        :width="tableOptions.btnOptions.length * 55"
+        :width="tableOptions.btnOptions.length == 1 ? '100' : tableOptions.btnOptions.length * 55"
         :min-width="tableOptions.minWidth ? tableOptions.minWidth : ''"
         :label="tableOptions.label"
         :align="tableOptions.align"
