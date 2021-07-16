@@ -147,7 +147,8 @@ export default defineComponent({
     const handleSizeChange = (val: Val) => {
       emit('handelUpdataPage', {
         value: 'size',
-        page: val,
+        page:1,
+        pageSize: val,
       })
     }
     return {
