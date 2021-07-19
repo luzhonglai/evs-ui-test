@@ -3,8 +3,8 @@
  * @repository: https://github.com/luzhonglai
  * @Author: ZhongLai Lu
  * @Date: 2021-03-31 17:18:17
- * @LastEditors: Zhonglai Lu
- * @LastEditTime: 2021-07-05 17:39:48
+ * @LastEditors: Jiang Peng
+ * @LastEditTime: 2021-07-08 09:51:58
 -->
 
 <template>
@@ -49,9 +49,9 @@
     <el-pagination
       v-if="pagination"
       layout="total, sizes, prev, pager, next, jumper"
-      :current-page="pagination.currentPage"
+      v-model:current-page="pagination.currentPage"
       :page-sizes="pagination.pageSizes || [5, 10, 15, 30, 50]"
-      :page-size="pagination.pageSize"
+      v-model:page-size="pagination.pageSize"
       :total="pagination.total"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"

@@ -110,7 +110,11 @@
             style="display: inline-block; margin-left: 5px"
           >
             <el-button
-              v-if="item.status?.show === scope.row[item.status?.key]"
+              v-if="
+                item.switchRender
+                  ? item.switchRender(scope.row)
+                  : '' || item.status?.show === scope.row[item.status?.key]
+              "
               :disabled="!!item.status?.disabledVal === scope.row[item.status?.disabledKey]"
               :type="item.type ? item.type : 'primary'"
               :icon="item.icon ? item.icon : ''"

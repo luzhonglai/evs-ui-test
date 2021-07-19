@@ -1,7 +1,7 @@
 <template>
   <div class="searchCon" :class="{ fold: switchFlag }">
     <div class="searchArea">
-      <el-form :model="formData" :rules="rules" size="mini" ref="refFrom">
+      <el-form :model="formData" :rules="rules" size="mini" ref="refFrom" @submit.native.prevent>
         <el-row :gutter="20">
           <el-col v-for="item in formModel" :key="item.name" :span="item.type == 'datetimerange' ? 16 : 8">
             <!-- 省市选择组件 -->
