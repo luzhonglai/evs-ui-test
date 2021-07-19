@@ -3,7 +3,7 @@
     <div class="searchArea">
       <el-form :model="formData" :rules="rules" size="mini" ref="refFrom" @submit.native.prevent>
         <el-row :gutter="20">
-          <el-col v-for="item in formModel" :key="item.name" :span="item.type == 'datetimerange' ? 16 : item.span|8">
+          <el-col v-for="item in formModel" :key="item.name" :span="item.type == 'datetimerange' ? 16 : item.span | 8">
             <!-- 省市选择组件 -->
             <el-form-item
               v-if="item.type === 'cascaderLazy'"
@@ -14,7 +14,7 @@
               <el-cascader
                 v-model="formData[item.name]"
                 clearable
-                :placeholder="item.placeholder||'请选择'"
+                :placeholder="item.placeholder || '请选择'"
                 :props="item.optionProps"
                 @change="changeCity"
               ></el-cascader>
@@ -26,7 +26,13 @@
               :label="item.label"
               :label-width="item.labelWidth"
             >
-              <el-cascader v-model="formData[item.name]" :props="item.optionProps" clearable :options="item.options"></el-cascader>
+              <el-cascader
+                v-model="formData[item.name]"
+                :props="item.optionProps"
+                clearable
+                :options="item.options"
+                :filterable="item.filterable"
+              ></el-cascader>
             </el-form-item>
             <!-- 站列表动态查询组件 -->
             <el-form-item
@@ -64,7 +70,7 @@
               <div class="label_name" :style="{ width: item.labelWidth }" :class="item.selName ? 'group' : ''">
                 <el-select
                   v-model="formData[item.selName]"
-                  :placeholder="item.placeholder||'请选择'"
+                  :placeholder="item.placeholder || '请选择'"
                   size="mini"
                   :style="{ width: item.labelWidth }"
                   @change="handleToggleDateType(item.name)"

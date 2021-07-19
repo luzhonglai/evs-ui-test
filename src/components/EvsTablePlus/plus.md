@@ -278,6 +278,9 @@ export const tableOptions: any = {
         disabledKey: 'disabled', // 是否禁用按钮字段
         disabledVal: 0  // 字段的值 转换为 Boolaen  列： list返回‘disabled’ 字段值为 true 那么 按钮如果要禁用  则设置为相反值
       },
+      switchRender:(scope)=>{ // 多状态判断按钮是否显示
+
+      }
     },
     {
       label: '操作日志',
