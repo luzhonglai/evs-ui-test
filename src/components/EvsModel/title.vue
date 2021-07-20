@@ -38,11 +38,20 @@
         type: Boolean,
         default: false,
       },
+      isActive:{
+        type:Boolean,
+        default:true
+      }
     },
     emits: ['showActive'],
     setup(props: any, { emit, attrs }: any) {
-      const show = ref(true)
+      const show = ref(null)
       onBeforeMount(() => {})
+      onMounted(()=>{
+        console.log(props.isActive)
+        !props.isActive ? show.value = false : show.value = props.isActive
+        console.log(show.value)
+      })
       onMounted(() => {})
       const showBox = () => {
         show.value = !show.value

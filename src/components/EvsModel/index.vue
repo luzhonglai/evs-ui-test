@@ -17,7 +17,12 @@
       </template>
       <template v-if="titleComponent">
         <div class="vfor-title" v-for="item in titleComponent" :key="item">
-          <EvsTitle :itemTitle="item.title" :isClass="item.isClass">
+          <EvsTitle
+            :itemTitle="item.title"
+            :isClass="item.isClass"
+            :isActive="item.isActive"
+            @showActive="showTitleIsClass"
+          >
             <slot :name="item.slot"></slot>
           </EvsTitle>
         </div>
@@ -110,7 +115,7 @@ export default defineComponent({
       },
     },
   },
-  emits: ['handleComfirm', 'handleShowModel', 'handleCloseModel'],
+  emits: ['handleComfirm', 'handleShowModel', 'handleCloseModel', 'handleTitleIsClass'],
   setup(props: any, { emit, attrs }: any) {
     const titleAlign = props.titleAlign // 标题对齐方式
     const titleCssTextActive = props.titleCssText // 标题文字css 自定义
@@ -167,6 +172,9 @@ export default defineComponent({
         emit(`${code}`, item)
       }
     }
+    const showTitleIsClass = (val: any) => {
+      emit('handleTitleIsClass', val)
+    }
     return {
       propsWidth,
       attrs,
@@ -177,6 +185,7 @@ export default defineComponent({
       showCloseIcon,
       titleCssTextActive,
       btnModelAction,
+      showTitleIsClass,
     }
   },
 })
