@@ -21,6 +21,7 @@
             :itemTitle="item.title"
             :isClass="item.isClass"
             :isActive="item.isActive"
+            :btnName="item.btnName"
             @showActive="showTitleIsClass"
           >
             <slot :name="item.slot"></slot>

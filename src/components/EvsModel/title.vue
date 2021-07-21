@@ -4,12 +4,16 @@
     <div class="title-text" :class="{ title_b: isClass }">
       {{ itemTitle }}
       <div v-if="isClass" class="arror-box">
-        <i
+       <i
+          v-if="btnName == ''"
           class="el-icon-arrow-right item"
           :class="{ 'is-active': show }"
           style="cursor: pointer; margin-left: 20px"
           @click="showBox"
         ></i>
+        <span v-else @click="showBox" style="cursor: pointer; margin-left: 20px">
+          {{ btnName }}
+        </span>
       </div>
     </div>
   </div>
@@ -48,9 +52,7 @@
       const show = ref(null)
       onBeforeMount(() => {})
       onMounted(()=>{
-        console.log(props.isActive)
         !props.isActive ? show.value = false : show.value = props.isActive
-        console.log(show.value)
       })
       onMounted(() => {})
       const showBox = () => {
