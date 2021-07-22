@@ -73,6 +73,7 @@
                   :placeholder="item.placeholder || '请选择'"
                   size="mini"
                   :style="{ width: item.labelWidth }"
+                  clearable
                   @change="handleToggleDateType(item.name)"
                 >
                   <el-option
