@@ -45,6 +45,10 @@
       isActive:{
         type:Boolean,
         default:true
+      },
+      btnName:{
+        type:String,
+        default:''
       }
     },
     emits: ['showActive'],
