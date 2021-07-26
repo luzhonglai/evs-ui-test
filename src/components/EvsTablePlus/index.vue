@@ -62,7 +62,7 @@
         :header-align="item.headerAlign ? item.headerAlign : ''"
         :formatter="
           typeof item.formatter === 'function'
-            ? item.formatter
+            ? item.formatter()
             : () => {
                 return ''
               }
@@ -96,7 +96,7 @@
       <el-table-column
         v-if="tableOptions.isAction"
         :fixed="tableOptions.actionfixed"
-        :width="tableOptions.btnOptions.length == 1 ? '100' : tableOptions.btnOptions.length * 55"
+        :width="btnWidthComputed"
         :min-width="tableOptions.minWidth ? tableOptions.minWidth : ''"
         :label="tableOptions.label"
         :align="tableOptions.align"
@@ -199,6 +199,23 @@ export default defineComponent({
         homePage: props.paginations.homePage,
       }
     })
+    const btnWidthComputed =computed(()=>{
+      let btnsArr = {...props.tableOptions}
+      let wordsWidth = 0
+      let lengths = btnsArr.btnOptions.length
+      btnsArr.btnOptions.map((item:any)=>{
+        if(item.label.length == 2) {
+          wordsWidth = 60
+        }  else if(item.label.length == 3) {
+          wordsWidth = 90
+        } else if(item.label.length == 4) {
+          item['width'] = 120
+        } else if(item.label.length == 5) {
+          wordsWidth = 150
+        }
+      })
+      return Number(wordsWidth) * lengths
+    })
     // console.log(pageinations, 'computed---pages')
     // 更新分页
     const updataPage = (val: object) => {
@@ -230,6 +247,7 @@ export default defineComponent({
       pageinations, // page
       handleRadioChange, // 单选
       updataPage, // 分页
+      btnWidthComputed
     }
   },
 })
