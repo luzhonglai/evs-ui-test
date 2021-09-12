@@ -1,24 +1,19 @@
-# evs-pc-component
+# evs-ui
 
-## Project setup
-```
-npm install
-```
+> toB 业务组件库
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## 使用说明
 
-### Compiles and minifies for production
-```
-npm run build
+```bash
+  # nrm
+  nrm add cnpmorg http://10.10.18.122:7001/
+  nrm use cnpmorg
+  # node <= 14.+
+  yarn add evs-component-pro
+  npm install evs-component-pro
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
+## 特性
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- vue3+ts
+- 按需导入

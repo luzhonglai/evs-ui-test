@@ -3,26 +3,26 @@
 </template>
 
 <script>
-  export default {
-    /**
-     * tableData:导出的数据
-     * tHeader:表头
-     * filterVal:导出数据对应的字段名称
-     * excelName:导出的exel标题
-     */
-    props: {
-      tableData: [Array, Object],
-      tHeader: Array,
-      filterVal: Array,
-      excelName: {
-        type: String,
-        default() {
-          return '导出明细'
-        },
+export default {
+  /**
+   * tableData:导出的数据
+   * tHeader:表头
+   * filterVal:导出数据对应的字段名称
+   * excelName:导出的exel标题
+   */
+  props: {
+    tableData: [Array, Object],
+    tHeader: Array,
+    filterVal: Array,
+    excelName: {
+      type: String,
+      default() {
+        return '导出明细'
       },
     },
-    methods: {
-      /* eslint-disable */
+  },
+  methods: {
+    /* eslint-disable */
       exportData() {
         require.ensure([], () => {
           const { export_json_to_excel } = require('../utils/Export2Excel')

@@ -93,117 +93,117 @@
   </div>
 </template>
 <script lang="ts">
-  import { reactive, computed } from 'vue'
-  export default {
-    name: 'EvsSearchArea',
-    props: {
-      formModel: Array,
-      emitName: String,
-      defaultProps: Object,
-      datePickerOptions: {
-        type: Object,
-        default: function() {
-          return {}
-        },
-      },
-    },
-    setup(props: any, ctx: any) {
-      const formData: any = reactive({})
-      const selectOptions = computed(() => {
-        return function(item: any) {
-          if (item.defaultProps) {
-            item.options.forEach((option: any) => {
-              option.label = option[item.defaultProps.label]
-              option.value = option[item.defaultProps.value]
-            })
-          }
-          return item.options
+import { reactive, computed } from 'vue'
+export default {
+  name: 'EvsSearchArea',
+  props: {
+    formModel: Array,
+    emitName: String,
+    defaultProps: Object,
+    datePickerOptions: {
+      type: Object,
+      default: function() {
+        return {}
+      }
+    }
+  },
+  setup(props: any, ctx: any) {
+    const formData: any = reactive({})
+    const selectOptions = computed(() => {
+      return function(item: any) {
+        if (item.defaultProps) {
+          item.options.forEach((option: any) => {
+            option.label = option[item.defaultProps.label]
+            option.value = option[item.defaultProps.value]
+          })
         }
-      })
+        return item.options
+      }
+    })
 
-      function search() {
-        const emitName = props.emitName
-        ctx.emit(emitName ? emitName : 'search', formData)
-      }
+    function search() {
+      const emitName = props.emitName
+      ctx.emit(emitName ? emitName : 'search', formData)
+    }
 
-      function setDate(params: string[]) {
-        const [startTime, endTime] = params
-        formData[startTime] = formData.datetimerange[0]
-        formData[endTime] = formData.datetimerange[1]
-        // delete formData.datetimerange
-      }
+    function setDate(params: string[]) {
+      const [startTime, endTime] = params
+      formData[startTime] = formData.datetimerange[0]
+      formData[endTime] = formData.datetimerange[1]
+      // delete formData.datetimerange
+    }
 
-      function setArea(data: any, name: string, propsName: string) {
-        formData[name] = data[propsName]
+    function setArea(data: any, name: string, propsName: string) {
+      formData[name] = data[propsName]
+    }
+    function reset() {
+      for (const key in formData) {
+        formData[key] = ''
       }
-      function reset() {
-        for (const key in formData) {
-          formData[key] = ''
-        }
-        search()
+      search()
+    }
+    function triggerSelectChild(option: any, item: any) {
+      if (item.hasChild) {
+        ctx.emit('triggerSelectChild', option)
       }
-      function triggerSelectChild(option: any, item: any) {
-        if (item.hasChild) {
-          ctx.emit('triggerSelectChild', option)
-        }
-      }
+    }
 
-      return {
-        formData,
-        selectOptions,
-        search,
-        setDate,
-        setArea,
-        reset,
-        triggerSelectChild,
-      }
-    },
+    return {
+      formData,
+      selectOptions,
+      search,
+      setDate,
+      setArea,
+      reset,
+      triggerSelectChild
+    }
   }
+}
 </script>
 <style lang="scss" scoped>
-  .ct-query-input {
-    width: 100%;
+.ct-query-input {
+  width: 100%;
 
-    .el-button {
-      padding: 10px 15px;
-    }
+  .el-button {
+    padding: 10px 15px;
+  }
 
-    ::v-deep .el-form-item__label {
-      line-height: 36px;
-    }
+  ::v-deep .el-form-item__label {
+    line-height: 36px;
+  }
 
+  .el-form-item__content {
+    min-width: 220px;
+    line-height: 3px;
+  }
+
+  .el-input,
+  .el-select {
+    width: 284px !important;
+  }
+
+  .el-form-item {
+    margin-right: 20px;
+    display: inline-block;
+  }
+
+  .ct-query-input__button {
     .el-form-item__content {
-      min-width: 220px;
-      line-height: 3px;
-    }
-
-    .el-input,
-    .el-select {
-      width: 284px !important;
-    }
-
-    .el-form-item {
-      margin-right: 20px;
-      display: inline-block;
-    }
-
-    .ct-query-input__button {
-      .el-form-item__content {
-        width: 120px;
-        margin-left: 0px;
-      }
-    }
-
-    .el-select {
-      width: 100%;
-    }
-
-    .el-date-editor .el-range-input {
-      width: 42%;
-    }
-
-    .el-range-separator {
-      line-height: 30px;
+      width: 120px;
+      margin-left: 0px;
     }
   }
+
+  .el-select {
+    width: 100%;
+  }
+
+  .el-date-editor .el-range-input {
+    width: 42%;
+  }
+
+  .el-range-separator {
+    line-height: 30px;
+  }
+}
 </style>
