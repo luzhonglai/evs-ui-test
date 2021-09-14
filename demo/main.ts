@@ -4,11 +4,12 @@
  * @Author: ZhongLai Lu
  * @Date: 2021-09-08 16:13:47
  * @LastEditors: Zhonglai Lu
- * @LastEditTime: 2021-09-13 00:16:34
+ * @LastEditTime: 2021-09-14 14:55:04
  */
 import App from './App.vue'
 import { createApp } from 'vue'
 import { setElement } from './element'
+// import 'element-plus/dist/index.css'
 const app = createApp(App)
 
 import evsComponent from '../packages/index'

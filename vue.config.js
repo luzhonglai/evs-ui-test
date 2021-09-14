@@ -4,18 +4,16 @@
  * @Author: ZhongLai Lu
  * @Date: 2021-09-08 16:13:47
  * @LastEditors: Zhonglai Lu
- * @LastEditTime: 2021-09-13 00:21:04
+ * @LastEditTime: 2021-09-14 15:23:09
  */
 
 const path = require('path')
-
+const TerserPlugin = require('terser-webpack-plugin')
 const resolve = dir => {
   return path.join(__dirname, dir)
 }
 
 module.exports = {
-  productionSourceMap: false,
-
   pages: {
     index: {
       entry: 'demo/main.ts',
@@ -25,6 +23,7 @@ module.exports = {
   },
 
   lintOnSave: true,
+  productionSourceMap: false,
   devServer: {
     port: 8080,
     open: true,
@@ -33,7 +32,8 @@ module.exports = {
       errors: false,
     },
   },
-  css: { extract: false },
+
+  css: { extract: true },
   chainWebpack: config => {
     config.resolve.alias.set('~', resolve('demo'))
     config.resolve.alias.set('@', resolve('packages'))
@@ -43,7 +43,6 @@ module.exports = {
       .end()
       .exclude.add(resolve('demo'))
       .end()
-    // packages和examples目录需要加入编译
     config.module
       .rule('js')
       .include.add(resolve('packages'))
@@ -55,5 +54,15 @@ module.exports = {
       .tap(options => {
         return options
       })
+      .end()
+    config.plugin('TerserPlugin').use(
+      new TerserPlugin({
+        terserOptions: {
+          compress: true,
+        },
+        sourceMap: false,
+        parallel: true,
+      }),
+    )
   },
 }

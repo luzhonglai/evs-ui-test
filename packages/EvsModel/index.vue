@@ -16,12 +16,12 @@
         </div>
       </template>
       <template v-if="titleComponent">
-        <div class="vfor-title" v-for="item in titleComponent" :key="item">
+        <div v-for="item in titleComponent" :key="item" class="vfor-title">
           <EvsTitle
-            :itemTitle="item.title"
-            :isClass="item.isClass"
-            :isActive="item.isActive"
-            :btnName="item.btnName"
+            :item-title="item.title"
+            :is-class="item.isClass"
+            :is-active="item.isActive"
+            :btn-name="item.btnName"
             @showActive="showTitleIsClass"
           >
             <slot :name="item.slot"></slot>
@@ -35,7 +35,7 @@
           <el-button
             v-for="(item, index) in btnOptions"
             :key="index"
-            :type="item?.type"
+            :type="item.type"
             :plain="item.plain"
             @click="btnModelAction(item)"
             >{{ item.text }}</el-button
@@ -118,6 +118,7 @@ export default defineComponent({
   },
   emits: ['handleComfirm', 'handleShowModel', 'handleCloseModel', 'handleTitleIsClass'],
   setup(props: any, { emit, attrs }: any) {
+    /* eslint-disable vue/no-setup-props-destructure */
     const titleAlign = props.titleAlign // 标题对齐方式
     const titleCssTextActive = props.titleCssText // 标题文字css 自定义
     const btnAlignAction = computed(() => {

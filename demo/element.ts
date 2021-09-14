@@ -90,7 +90,7 @@ import {
   ElMessageBox,
   ElNotification,
   ElDescriptions,
-  ElDescriptionsItem
+  ElDescriptionsItem,
 } from 'element-plus'
 
 const components = [
@@ -176,7 +176,7 @@ const components = [
   ElUpload,
   ElEmpty,
   ElDescriptions,
-  ElDescriptionsItem
+  ElDescriptionsItem,
 ]
 
 const plugins = [
@@ -184,7 +184,7 @@ const plugins = [
   ElLoading,
   // ElMessage,
   ElMessageBox,
-  ElNotification
+  ElNotification,
 ]
 
 /**

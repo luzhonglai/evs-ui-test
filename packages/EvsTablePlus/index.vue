@@ -20,30 +20,30 @@
     >
       <!--多选-->
       <el-table-column
-        :fixed="tableOptions.checkFixed"
         v-if="tableOptions.canCheck"
+        :fixed="tableOptions.checkFixed"
         align="center"
         type="selection"
         width="55"
       ></el-table-column>
       <!--单选-->
       <el-table-column
-        :fixed="tableOptions.radioFixed"
         v-if="tableOptions.radioCheck"
+        :fixed="tableOptions.radioFixed"
         :label="tableOptions.radioLabel"
         align="center"
         width="55"
       >
         <template #default="scope">
-          <el-radio :label="scope.$index" v-model="radioModel" @change="handleRadioChange(scope.row, radioModel)">
+          <el-radio v-model="radioModel" :label="scope.$index" @change="handleRadioChange(scope.row, radioModel)">
             <div style="display: none">{{ scope.row.casherName }}</div>
           </el-radio>
         </template>
       </el-table-column>
       <!--序号-->
       <el-table-column
-        :fixed="tableOptions.indexFixed"
         v-if="tableOptions.hasIndex"
+        :fixed="tableOptions.indexFixed"
         align="center"
         type="index"
         width="50"
@@ -89,7 +89,7 @@
               <el-button type="primary" size="mini">预览</el-button>
             </el-tooltip>
           </span>
-          <span :style="`color: ${item.color}`" v-else>{{ scope.row[item.prop] }}</span>
+          <span v-else :style="`color: ${item.color}`">{{ scope.row[item.prop] }}</span>
         </template>
       </el-table-column>
       <!--操作按钮-->
@@ -119,8 +119,8 @@
               :type="item.type ? item.type : 'primary'"
               :icon="item.icon ? item.icon : ''"
               :style="`color: ${item.color}`"
-              @click="handleButton(item.method, scope.row, scope.$index)"
               size="mini"
+              @click="handleButton(item.method, scope.row, scope.$index)"
             >
               <span v-if="item.render" v-html="item.render(scope, item)"> </span>
               <span v-else>{{ item.label }}</span>
@@ -130,7 +130,7 @@
       </el-table-column>
     </el-table>
     <div class="pagination">
-      <Page :pageOtions="pageinations" @handelUpdataPage="updataPage"></Page>
+      <Page :page-otions="pageinations" @handelUpdataPage="updataPage"></Page>
     </div>
   </div>
 </template>
@@ -199,18 +199,18 @@ export default defineComponent({
         homePage: props.paginations.homePage,
       }
     })
-    const btnWidthComputed =computed(()=>{
-      let btnsArr = {...props.tableOptions}
+    const btnWidthComputed = computed(() => {
+      let btnsArr = { ...props.tableOptions }
       let wordsWidth = 0
       let lengths = btnsArr.btnOptions.length
-      btnsArr.btnOptions.map((item:any)=>{
-        if(item.label.length == 2) {
+      btnsArr.btnOptions.map((item: any) => {
+        if (item.label.length == 2) {
           wordsWidth = 60
-        }  else if(item.label.length == 3) {
+        } else if (item.label.length == 3) {
           wordsWidth = 90
-        } else if(item.label.length == 4) {
+        } else if (item.label.length == 4) {
           item['width'] = 120
-        } else if(item.label.length == 5) {
+        } else if (item.label.length == 5) {
           wordsWidth = 150
         }
       })
@@ -247,7 +247,7 @@ export default defineComponent({
       pageinations, // page
       handleRadioChange, // 单选
       updataPage, // 分页
-      btnWidthComputed
+      btnWidthComputed,
     }
   },
 })
