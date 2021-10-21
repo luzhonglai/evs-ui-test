@@ -1,15 +1,17 @@
 {
   "name": "@evs-pc/evs-ui-pro",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "nrm": false,
   "author": "admin",
   "main": "lib/index.umd.js",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build:core": "vue-cli-service build --target lib --name index --dest lib --no-clean packages/index.js",
-    "build": "rimraf dist && npm run build:core",
+    "build:umd": "vue-cli-service build --target lib --name index --dest lib --no-clean packages/index.js",
+    "build": "rimraf dist && npm run build:umd",
+    "docs:dev": "vitepress dev docs --host --open",
+    "docs:build": "vitepress build docs",
     "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint \"{packages}/**/*.{vue}\"  --fix"
+    "lint:fix": "eslint --fix --ext .js,.ts,.md,.vue ./"
   },
   "files": [
     "packages",
@@ -37,14 +39,16 @@
     "@vue/eslint-config-typescript": "^5.0.2",
     "babel-eslint": "^10.1.0",
     "babel-plugin-component": "^1.1.1",
-    "element-plus": "^1.0.2-beta.31",
     "compression-webpack-plugin": "^6.0.3",
-    "terser-webpack-plugin": "^4.1.0",
+    "element-plus": "^1.0.2-beta.31",
     "element-resize-detector": "^1.2.2",
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-vue": "^7.0.0-0",
+    "nprogress": "^0.2.0",
     "rimraf": "^3.0.2",
+    "sucrase": "^3.20.1",
+    "terser-webpack-plugin": "^4.1.0",
     "typescript": "~3.9.3",
     "zy-test-npm-publish": "^1.0.0",
     "vue": "^3.0.0"
