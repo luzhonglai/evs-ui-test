@@ -31,6 +31,7 @@ module.exports = {
     '@typescript-eslint/no-var-requires': 0, // 关闭require警告
     'no-empty-funcstion': 'off',
     '@typescript-eslint/no-empty-function': 0,
+    'vue/require-explicit-emits': 'off',
   },
   overrides: [
     {

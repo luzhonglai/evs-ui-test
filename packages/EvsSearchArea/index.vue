@@ -3,7 +3,11 @@
     <div class="searchArea">
       <el-form ref="refFrom" :model="formData" :rules="rules" size="mini" @submit.native.prevent>
         <el-row :gutter="20">
-          <el-col v-for="item in formModel" :key="item.name" :span="item.type == 'datetimerange' ? 16 : item.span | 8">
+          <el-col
+            v-for="item in formModel"
+            :key="item.name"
+            :span="item.type == 'datetimerange' ? item.span | 16 : item.span | 8"
+          >
             <!-- 省市选择组件 -->
             <el-form-item
               v-if="item.type === 'cascaderLazy'"
@@ -54,12 +58,14 @@
             >
               <el-input
                 v-model="formData[item.name]"
-                :distance="item.distance || false"
+                :disabled="item.disabled || false"
                 style="width: 100%"
                 clearable
                 :placeholder="item.placeholder"
               >
-                <slot v-if="item.isInputSlot" name="inputSlot"></slot>
+                <template v-if="item.isInputSlot">
+                  <slot name="inputSlot"></slot>
+                </template>
               </el-input>
             </el-form-item>
             <!-- input前面加下拉菜单 -->
@@ -91,11 +97,15 @@
                 <el-input
                   v-model="formData[item.name]"
                   style="width: 100%"
-                  :distance="item.distance || false"
+                  :disabled="item.disabled || false"
                   clearable
                   size="mini"
                   :placeholder="item.placeholder"
-                ></el-input>
+                >
+                  <template v-if="item.isInputSlot">
+                    <slot name="inputSlot"></slot>
+                  </template>
+                </el-input>
               </div>
             </div>
             <!-- 单选日期组件 -->

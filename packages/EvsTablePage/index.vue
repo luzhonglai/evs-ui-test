@@ -3,8 +3,8 @@
  * @repository: https://github.com/luzhonglai
  * @Author: ZhongLai Lu
  * @Date: 2021-03-31 17:18:17
- * @LastEditors: Jiang Peng
- * @LastEditTime: 2021-07-08 09:51:58
+ * @LastEditors: Zhonglai Lu
+ * @LastEditTime: 2021-11-04 12:43:18
 -->
 
 <template>
@@ -70,7 +70,7 @@ export default defineComponent({
     loading: { type: Boolean, default: false },
     border: { type: Boolean, default: true },
     loadingText: { type: String, default: '数据加载中...' },
-    height: { type: String, default: '600' }
+    height: { type: [String, Number], default: 'auto' },
   },
 
   setup(props, { emit }) {
@@ -100,13 +100,13 @@ export default defineComponent({
       },
       clearSelection() {
         this.$refs.tableRef.clearSelection()
-      }
+      },
     }
 
     return {
-      ...methods
+      ...methods,
     }
-  }
+  },
 })
 </script>
 
