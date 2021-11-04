@@ -63,8 +63,8 @@
                 clearable
                 :placeholder="item.placeholder"
               >
-                <template v-if="item.isInputSlot">
-                  <slot name="inputSlot"></slot>
+                <template v-if="item.iconSlot" #append>
+                  <slot name="iconSlot"></slot>
                 </template>
               </el-input>
             </el-form-item>
@@ -102,8 +102,8 @@
                   size="mini"
                   :placeholder="item.placeholder"
                 >
-                  <template v-if="item.isInputSlot">
-                    <slot name="inputSlot"></slot>
+                  <template v-if="item.iconSlot" #append>
+                    <slot name="iconSlot"></slot>
                   </template>
                 </el-input>
               </div>

@@ -1,13 +1,13 @@
 {
   "name": "@evs-pc/evs-ui-pro",
-  "version": "1.0.3",
-  "nrm": false,
+  "version": "1.0.4",
+  "private": false,
   "author": "admin",
   "main": "lib/index.umd.js",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build:umd": "vue-cli-service build --target lib --name index --dest lib --no-clean packages/index.js",
-    "build": "rimraf dist && npm run build:umd",
+    "build:umd": "vue-cli-service build --target lib --name index --dest lib packages/index.js",
+    "build": "npm run build:umd",
     "docs:dev": "vitepress dev docs --host --open",
     "docs:build": "vitepress build docs",
     "test:unit": "vue-cli-service test:unit",

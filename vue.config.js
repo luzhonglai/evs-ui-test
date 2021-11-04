@@ -5,7 +5,7 @@
  * @Author: ZhongLai Lu
  * @Date: 2021-09-08 16:13:47
  * @LastEditors: Zhonglai Lu
- * @LastEditTime: 2021-11-04 10:37:51
+ * @LastEditTime: 2021-11-04 18:03:18
  */
 
 const path = require('path')
@@ -38,6 +38,7 @@ module.exports = {
   chainWebpack: config => {
     config.resolve.alias.set('~', resolve('demo'))
     config.resolve.alias.set('@', resolve('packages'))
+
     config.module
       .rule('eslint')
       .exclude.add(resolve('lib'))
@@ -56,6 +57,7 @@ module.exports = {
         return options
       })
       .end()
+
     config.plugin('TerserPlugin').use(
       new TerserPlugin({
         extractComments: false, // 是否将注释提取到一个单独的文件中
