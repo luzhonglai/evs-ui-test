@@ -3,11 +3,7 @@
     <div class="searchArea">
       <el-form ref="refFrom" :model="formData" :rules="rules" size="mini" @submit.native.prevent>
         <el-row :gutter="20">
-          <el-col
-            v-for="item in formModel"
-            :key="item.name"
-            :span="item.type == 'datetimerange' ? item.span | 16 : item.span | 8"
-          >
+          <el-col v-for="item in formModel" :key="item.name" :span="item.span || 8">
             <!-- 省市选择组件 -->
             <el-form-item
               v-if="item.type === 'cascaderLazy'"
@@ -59,12 +55,13 @@
               <el-input
                 v-model="formData[item.name]"
                 :disabled="item.disabled || false"
+                :readonly="item.readonly || false"
                 style="width: 100%"
                 clearable
                 :placeholder="item.placeholder"
               >
                 <template v-if="item.iconSlot" #append>
-                  <slot name="iconSlot"></slot>
+                  <slot :name="item.name"></slot>
                 </template>
               </el-input>
             </el-form-item>
@@ -98,12 +95,13 @@
                   v-model="formData[item.name]"
                   style="width: 100%"
                   :disabled="item.disabled || false"
+                  :readonly="item.readonly || false"
                   clearable
                   size="mini"
                   :placeholder="item.placeholder"
                 >
                   <template v-if="item.iconSlot" #append>
-                    <slot name="iconSlot"></slot>
+                    <slot :name="item.name"></slot>
                   </template>
                 </el-input>
               </div>
@@ -375,6 +373,9 @@ export default defineComponent({
 }
 </style>
 <style lang="less" scoped>
+:deep(.el-input-group__append, .el-input-group__prepend) {
+  border: 0;
+}
 .searchCon {
   display: flex;
   // padding: 24px 24px 0;

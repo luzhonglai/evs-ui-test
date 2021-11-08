@@ -4,7 +4,7 @@
  * @Author: ZhongLai Lu
  * @Date: 2021-03-31 17:18:17
  * @LastEditors: Zhonglai Lu
- * @LastEditTime: 2021-11-04 12:43:18
+ * @LastEditTime: 2021-11-08 09:35:50
 -->
 
 <template>
@@ -68,9 +68,9 @@ export default defineComponent({
     data: { type: [Object, Boolean], default: false },
     pagination: { type: [Object, Boolean], default: false },
     loading: { type: Boolean, default: false },
-    border: { type: Boolean, default: true },
+    border: { type: Boolean, default: false },
     loadingText: { type: String, default: '数据加载中...' },
-    height: { type: [String, Number], default: 'auto' },
+    height: { type: [String, Number], default: '—' },
   },
 
   setup(props, { emit }) {

@@ -5,7 +5,7 @@
  * @Author: ZhongLai Lu
  * @Date: 2021-09-08 16:13:47
  * @LastEditors: Zhonglai Lu
- * @LastEditTime: 2021-11-04 18:03:18
+ * @LastEditTime: 2021-11-08 10:41:14
  */
 
 const path = require('path')
@@ -58,22 +58,22 @@ module.exports = {
       })
       .end()
 
-    config.plugin('TerserPlugin').use(
-      new TerserPlugin({
-        extractComments: false, // 是否将注释提取到一个单独的文件中
-        terserOptions: {
-          warnings: false, // 打包提示
-          compress: {
-            drop_debugger: true, // 注视点console
-            drop_console: true,
-            pure_funcs: ['console.log'], // 去除console
-          },
-        },
-        cache: true,
-        sourceMap: false,
-        parallel: false,
-      }),
-    )
+    // config.plugin('TerserPlugin').use(
+    //   new TerserPlugin({
+    //     extractComments: false, // 是否将注释提取到一个单独的文件中
+    //     terserOptions: {
+    //       warnings: false, // 打包提示
+    //       compress: {
+    //         drop_debugger: true, // 注视点console
+    //         drop_console: true,
+    //         pure_funcs: ['console.log'], // 去除console
+    //       },
+    //     },
+    //     cache: true,
+    //     sourceMap: false,
+    //     parallel: false,
+    //   }),
+    // )
   },
   configureWebpack: {
     module: {
