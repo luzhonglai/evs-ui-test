@@ -1,6 +1,6 @@
 {
   "name": "@evs-pc/evs-ui-pro",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "private": false,
   "author": "admin",
   "main": "lib/index.umd.js",
