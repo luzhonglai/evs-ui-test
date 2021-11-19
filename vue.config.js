@@ -5,7 +5,7 @@
  * @Author: ZhongLai Lu
  * @Date: 2021-09-08 16:13:47
  * @LastEditors: Zhonglai Lu
- * @LastEditTime: 2021-11-08 10:41:14
+ * @LastEditTime: 2021-11-19 14:57:34
  */
 
 const path = require('path')
@@ -13,6 +13,7 @@ const TerserPlugin = require('terser-webpack-plugin')
 const resolve = dir => {
   return path.join(__dirname, dir)
 }
+const IS_PROD = ['production', 'prod'].includes(process.env.NODE_ENV)
 
 module.exports = {
   pages: {
@@ -57,23 +58,25 @@ module.exports = {
         return options
       })
       .end()
-
-    // config.plugin('TerserPlugin').use(
-    //   new TerserPlugin({
-    //     extractComments: false, // 是否将注释提取到一个单独的文件中
-    //     terserOptions: {
-    //       warnings: false, // 打包提示
-    //       compress: {
-    //         drop_debugger: true, // 注视点console
-    //         drop_console: true,
-    //         pure_funcs: ['console.log'], // 去除console
-    //       },
-    //     },
-    //     cache: true,
-    //     sourceMap: false,
-    //     parallel: false,
-    //   }),
-    // )
+    /* 生产部署处理 */
+    config.when(IS_PROD, config => {
+      config.plugin('TerserPlugin').use(
+        new TerserPlugin({
+          extractComments: false, // 是否将注释提取到一个单独的文件中
+          terserOptions: {
+            warnings: false, // 打包提示
+            compress: {
+              drop_debugger: true, // 注视点console
+              drop_console: true,
+              pure_funcs: ['console.log'], // 去除console
+            },
+          },
+          cache: true,
+          sourceMap: false,
+          parallel: false,
+        }),
+      )
+    })
   },
   configureWebpack: {
     module: {

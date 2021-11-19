@@ -6,12 +6,10 @@
   "main": "lib/index.umd.js",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build:umd": "vue-cli-service build --target lib --name index --dest lib packages/index.js",
-    "build": "npm run build:umd",
-    "docs:dev": "vitepress dev docs --host --open",
-    "docs:build": "vitepress build docs",
+    "build": "vue-cli-service build --target lib --name index --dest lib packages/index.js",
     "test:unit": "vue-cli-service test:unit",
-    "lint:fix": "eslint --fix --ext .js,.ts,.md,.vue ./"
+    "prettier": "prettier --loglevel warn \"./packages/**/*.{js,json,tsx,css,less,scss,vue}\"",
+    "lint:fix": "eslint --fix \"./packages/**/*.{vue,ts,tsx}\""
   },
   "files": [
     "packages",
@@ -30,7 +28,6 @@
     "@vue/eslint-config-typescript": "^5.0.2",
     "babel-eslint": "^10.1.0",
     "babel-plugin-component": "^1.1.1",
-    "compression-webpack-plugin": "^6.0.3",
     "core-js": "^3.6.5",
     "element-resize-detector": "^1.2.2",
     "eslint": "^6.7.2",
@@ -39,12 +36,9 @@
     "file-saver": "^2.0.5",
     "less": "^4.1.1",
     "less-loader": "^5.0.0",
-    "nprogress": "^0.2.0",
-    "rimraf": "^3.0.2",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "script-loader": "^0.7.2",
-    "sucrase": "^3.20.1",
     "terser-webpack-plugin": "^4.1.0",
     "typescript": "~3.9.3",
     "vue": "^3.0.0",
