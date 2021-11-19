@@ -225,6 +225,27 @@
                 :clearable="item.clearable"
               ></el-date-picker>
             </el-form-item>
+            <!-- 年月range组件 -->
+            <el-form-item
+                v-if="item.type === 'monthrange'"
+                class="search-item"
+                :label="item.label"
+                :label-width="item.labelWidth"
+                :prop="item.name"
+            >
+              <el-date-picker
+                  v-model="formData[item.name]"
+                  type="monthrange"
+                  :range-separator="item.rangeSeparator"
+                  :start-placeholder="item.startPlaceholder"
+                  :end-placeholder="item.endPlaceholder"
+                  style="width: 100%"
+                  :shortcuts="item.shortcuts"
+                  :disabledDate="disabledDate"
+                  :clearable="item.clearable"
+              ></el-date-picker>
+            </el-form-item>
+
           </el-col>
         </el-row>
       </el-form>
