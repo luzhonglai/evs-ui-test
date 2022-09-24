@@ -17,12 +17,12 @@ export default defineComponent({
   props: {
     iconClass: {
       type: String,
-      required: true
+      required: true,
     },
     className: {
       type: String,
-      default: () => ''
-    }
+      default: () => '',
+    },
   },
   setup(props: Props) {
     const iconName = computed((): string => `#icon-${props.iconClass}`)
@@ -36,9 +36,9 @@ export default defineComponent({
 
     return {
       iconName,
-      svgClass
+      svgClass,
     }
-  }
+  },
 })
 </script>
 

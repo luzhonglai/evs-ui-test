@@ -3,18 +3,11 @@
  * @repository: https://github.com/luzhonglai
  * @Author: ZhongLai Lu
  * @Date: 2021-05-08 10:41:31
- * @LastEditors: Zhonglai Lu
- * @LastEditTime: 2021-11-08 17:31:57
+ * @LastEditors: luzhonglai
+ * @LastEditTime: 2022-09-24 18:38:41
 -->
 <template>
   <div class="content">
-    <el-button icon="Search" circle></el-button>
-    <el-button type="primary" icon="Edit" circle></el-button>
-    <el-button type="success" icon="Check" circle></el-button>
-    <el-button type="info" icon="Message" circle></el-button>
-    <el-button type="warning" icon="Star" circle></el-button>
-    <el-button type="danger" icon="Delete" circle></el-button>
-    <!-- {{ findListParams }} -->
     <!-- 搜索top -->
     <EvsSearchArea
       :form-model="formInline"
@@ -30,18 +23,13 @@
         <SelectStation ref="resetName" style="width:100%" @EventChangeStation="changeStation"></SelectStation>
       </template>
     </EvsSearchArea>
+
+    
   </div>
 </template>
 <script lang="ts">
 import { defineComponent, ref, Ref, onBeforeMount } from 'vue'
 import { Search, Edit, Check, Message, Star, Delete } from '@element-plus/icons'
-// import { setStoreState } from '@/store/utils'
-// import { formatDate } from '@/utils/utils'
-// import { findBelongOrganizationList } from '@/api/whiteList'
-// import store from '@/store'
-// import wsCache from '@/utils/cache'
-// import { findByPage, overTimeFeeModel, queryStaReacord, findByIdDetail } from '../service'
-// import cityJson from '@/utils/pca-code'
 export default defineComponent({
   name: 'RoleList',
   setup(props, ctx) {
@@ -53,7 +41,7 @@ export default defineComponent({
       { label: '退运', value: 11 },
     ]
     const formInline = ref([
-      {
+      {  
         name: 'seniorSearch',
         readonly: true,
         span: 20,
@@ -198,7 +186,7 @@ export default defineComponent({
           label: '创建时间',
           prop: 'createdAt',
           formatter(row, colimn) {
-            return formatDate(row.createdAt, 'Y/M/D')
+            // return formatDate(row.createdAt, 'Y/M/D')
           },
           width: '100',
         },
@@ -221,7 +209,7 @@ export default defineComponent({
           label: '操作时间',
           prop: 'createdAt',
           formatter(row, colimn) {
-            return formatDate(row.createdAt, 'Y/M/D h:m')
+            // return formatDate(row.createdAt, 'Y/M/D h:m')
           },
         },
         {
@@ -353,7 +341,7 @@ export default defineComponent({
         label: '创建时间',
         prop: 'createdAt',
         formatter(row, colimn) {
-          return formatDate(row.createdAt, 'Y/M/D')
+          // return formatDate(row.createdAt, 'Y/M/D')
         },
         width: '100',
       },

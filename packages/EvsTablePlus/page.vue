@@ -16,16 +16,8 @@
             >首页</el-button
           >
         </div>
-        <div
-          v-else
-          class="page-btn page-left"
-          :style="{ display: pageOtions.homePage ? 'block' : 'none' }"
-        >
-          <el-button
-            v-if="pageOtions.homePage ? pageOtions.homePage : false"
-            size="mini"
-            plain
-            @click="indexPage"
+        <div v-else class="page-btn page-left" :style="{ display: pageOtions.homePage ? 'block' : 'none' }">
+          <el-button v-if="pageOtions.homePage ? pageOtions.homePage : false" size="mini" plain @click="indexPage"
             >首页</el-button
           >
         </div>
@@ -42,37 +34,27 @@
             >尾页</el-button
           >
         </div>
-        <div
-          v-else
-          class="page-btn page-right"
-          :style="{ display: pageOtions.homePage ? 'block' : 'none' }"
-        >
-          <el-button
-            v-if="pageOtions.homePage ? pageOtions.homePage : false"
-            size="mini"
-            plain
-            @click="lastPage"
+        <div v-else class="page-btn page-right" :style="{ display: pageOtions.homePage ? 'block' : 'none' }">
+          <el-button v-if="pageOtions.homePage ? pageOtions.homePage : false" size="mini" plain @click="lastPage"
             >尾页</el-button
           >
         </div>
-          <el-pagination
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            :background="pageOtions.isColor"
-            :prev-text="pageOtions.prevText"
-            :next-text="pageOtions.nextText"
-            :current-page="pageOtions.page"
-            :page-sizes="pageOtions.sizes"
-            :page-size="pageOtions.size"
-            :total="pageOtions.total"
-            :layout="pageOtions.layout.join()"
-            :hide-on-single-page="
-              pageOtions.hidePage ? pageOtions.hidePage : false
-            "
-          >
-          </el-pagination>
+        <el-pagination
+          :background="pageOtions.isColor"
+          :prev-text="pageOtions.prevText"
+          :next-text="pageOtions.nextText"
+          :current-page="pageOtions.page"
+          :page-sizes="pageOtions.sizes"
+          :page-size="pageOtions.size"
+          :total="pageOtions.total"
+          :layout="pageOtions.layout.join()"
+          :hide-on-single-page="pageOtions.hidePage ? pageOtions.hidePage : false"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+        >
+        </el-pagination>
       </div>
-      <span class="page-num" v-if="pageOtions.pageCount">
+      <span v-if="pageOtions.pageCount" class="page-num">
         第 {{ pageOtions.page }} 页 {{ pageOtions.size }} 条/页
         <b>共 {{ pageOtions.total }} 条</b>
       </span>
@@ -81,13 +63,7 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  reactive,
-  toRefs,
-  onBeforeMount,
-  onMounted,
-} from 'vue'
+import { defineComponent, reactive, toRefs, onBeforeMount, onMounted } from 'vue'
 interface Val {
   val: number | string
 }
@@ -116,9 +92,7 @@ export default defineComponent({
   },
   emits: ['handelUpdataPage'],
   setup(props: any, { emit }: any) {
-    const block = props.pageOtions.homePage
-      ? 'display:flex'
-      : 'display:block;text-align:right'
+    const block = props.pageOtions.homePage ? 'display:flex' : 'display:block;text-align:right'
     // 返回首页
     const indexPage = () => {
       // console.log(props.pageOtions.page, 'children--table')
@@ -147,7 +121,7 @@ export default defineComponent({
     const handleSizeChange = (val: Val) => {
       emit('handelUpdataPage', {
         value: 'size',
-        page:1,
+        page: 1,
         pageSize: val,
       })
     }
@@ -230,7 +204,7 @@ export default defineComponent({
       background-color: rgba(85, 135, 240, 0.1) !important;
       border-radius: 3px;
     }
-   .el-pagination__jump{
+    .el-pagination__jump {
       margin-left: 75px;
     }
     .btn-prev,

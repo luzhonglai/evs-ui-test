@@ -228,45 +228,43 @@
 
             <!-- 年月range组件 -->
             <el-form-item
-                v-if="item.type === 'monthrange'"
-                class="search-item"
-                :label="item.label"
-                :label-width="item.labelWidth"
-                :prop="item.name"
+              v-if="item.type === 'monthrange'"
+              class="search-item"
+              :label="item.label"
+              :label-width="item.labelWidth"
+              :prop="item.name"
             >
               <el-date-picker
-                  v-model="formData[item.name]"
-                  type="monthrange"
-                  :range-separator="item.rangeSeparator"
-                  :start-placeholder="item.startPlaceholder"
-                  :end-placeholder="item.endPlaceholder"
-                  style="width: 100%"
-                  :shortcuts="item.shortcuts"
-                  :disabledDate="disabledDate"
-                  :clearable="item.clearable"
+                v-model="formData[item.name]"
+                type="monthrange"
+                :range-separator="item.rangeSeparator"
+                :start-placeholder="item.startPlaceholder"
+                :end-placeholder="item.endPlaceholder"
+                style="width: 100%"
+                :shortcuts="item.shortcuts"
+                :disabled-date="disabledDate"
+                :clearable="item.clearable"
               ></el-date-picker>
             </el-form-item>
 
             <!-- 年组件 -->
             <el-form-item
-                v-if="item.type === 'year'"
-                class="search-item"
-                :label="item.label"
-                :label-width="item.labelWidth"
-                :prop="item.name"
+              v-if="item.type === 'year'"
+              class="search-item"
+              :label="item.label"
+              :label-width="item.labelWidth"
+              :prop="item.name"
             >
               <el-date-picker
-                  type="year"
-                  v-model="formData[item.name]"
-                  :placeholder="item.placeholder"
-                  :clearable="true"
-                  :default-time="item.defaultTime"
-                  :disabled-date="disabledDate"
+                v-model="formData[item.name]"
+                type="year"
+                :placeholder="item.placeholder"
+                :clearable="true"
+                :default-time="item.defaultTime"
+                :disabled-date="disabledDate"
               >
               </el-date-picker>
             </el-form-item>
-
-
           </el-col>
         </el-row>
       </el-form>

@@ -104,8 +104,8 @@ export default {
       type: Object,
       default: function() {
         return {}
-      }
-    }
+      },
+    },
   },
   setup(props: any, ctx: any) {
     const formData: any = reactive({})
@@ -155,9 +155,9 @@ export default {
       setDate,
       setArea,
       reset,
-      triggerSelectChild
+      triggerSelectChild,
     }
-  }
+  },
 }
 </script>
 <style lang="scss" scoped>

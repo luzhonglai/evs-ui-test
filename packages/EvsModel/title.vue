@@ -4,14 +4,14 @@
     <div class="title-text" :class="{ title_b: isClass }">
       {{ itemTitle }}
       <div v-if="isClass" class="arror-box">
-       <i
+        <i
           v-if="btnName == ''"
           class="el-icon-arrow-right item"
           :class="{ 'is-active': show }"
           style="cursor: pointer; margin-left: 20px"
           @click="showBox"
         ></i>
-        <span v-else @click="showBox" style="cursor: pointer; margin-left: 20px">
+        <span v-else style="cursor: pointer; margin-left: 20px" @click="showBox">
           {{ btnName }}
         </span>
       </div>
@@ -30,77 +30,77 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref, onBeforeMount, onMounted } from 'vue'
-  export default defineComponent({
-    name: 'EvsTitle',
-    props: {
-      itemTitle: {
-        type: String,
-        default: '',
-      },
-      isClass: {
-        type: Boolean,
-        default: false,
-      },
-      isActive:{
-        type:Boolean,
-        default:true
-      },
-      btnName:{
-        type:String,
-        default:''
-      }
+import { defineComponent, ref, onBeforeMount, onMounted } from 'vue'
+export default defineComponent({
+  name: 'EvsTitle',
+  props: {
+    itemTitle: {
+      type: String,
+      default: '',
     },
-    emits: ['showActive'],
-    setup(props: any, { emit, attrs }: any) {
-      const show = ref(null)
-      onBeforeMount(() => {})
-      onMounted(()=>{
-        !props.isActive ? show.value = false : show.value = props.isActive
-      })
-      onMounted(() => {})
-      const showBox = () => {
-        show.value = !show.value
-        emit('showActive', show.value)
-      }
-      return {
-        showBox,
-        show,
-      }
+    isClass: {
+      type: Boolean,
+      default: false,
     },
-  })
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
+    btnName: {
+      type: String,
+      default: '',
+    },
+  },
+  emits: ['showActive'],
+  setup(props: any, { emit, attrs }: any) {
+    const show = ref(null)
+    onBeforeMount(() => {})
+    onMounted(() => {
+      !props.isActive ? (show.value = false) : (show.value = props.isActive)
+    })
+    onMounted(() => {})
+    const showBox = () => {
+      show.value = !show.value
+      emit('showActive', show.value)
+    }
+    return {
+      showBox,
+      show,
+    }
+  },
+})
 </script>
 <style scoped lang="less">
-  .title {
-    .title-text {
-      height: 40px;
-      background: rgba(85, 135, 240, 0.1);
-      font-size: 14px;
-      padding-left: 10px;
-      border-radius: 3px;
-      line-height: 40px;
-      margin: 0 0 10px;
-      color: #4a4a4a;
-      text-align: left;
-      border-left: 2px solid #5587f0;
-    }
-    .arror-box {
-      float: right;
-    }
-    .item {
-      transition: transform 0.3s;
-      font-weight: 300;
-    }
-    .title_b {
-      // display: flex;
-      // justify-content: space-between;
-      padding-right: 10px;
-    }
-    .is-active {
-      transform: rotate(90deg);
-    }
+.title {
+  .title-text {
+    height: 40px;
+    background: rgba(85, 135, 240, 0.1);
+    font-size: 14px;
+    padding-left: 10px;
+    border-radius: 3px;
+    line-height: 40px;
+    margin: 0 0 10px;
+    color: #4a4a4a;
+    text-align: left;
+    border-left: 2px solid #5587f0;
   }
-  .title-container {
-    // padding: 10px 0 10px 0;
+  .arror-box {
+    float: right;
   }
+  .item {
+    transition: transform 0.3s;
+    font-weight: 300;
+  }
+  .title_b {
+    // display: flex;
+    // justify-content: space-between;
+    padding-right: 10px;
+  }
+  .is-active {
+    transform: rotate(90deg);
+  }
+}
+.title-container {
+  // padding: 10px 0 10px 0;
+}
 </style>
