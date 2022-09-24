@@ -1,6 +1,6 @@
 {
-  "name": "@evs-pc/evs-ui-pro",
-  "version": "1.0.8",
+  "name": "evs-ui-pro",
+  "version": "1.0.9",
   "private": false,
   "author": "admin",
   "main": "lib/index.umd.js",
@@ -33,6 +33,7 @@
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-vue": "^7.0.0-0",
+    "evs-components-pro": "^1.0.7",
     "file-saver": "^2.0.5",
     "less": "^4.1.1",
     "less-loader": "^5.0.0",
