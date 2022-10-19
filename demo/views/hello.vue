@@ -1,5 +1,13 @@
+<!--
+ * @Description: 测试组件
+ * @Author: luzhonglai
+ * @Date: 2022-10-16 14:10:24
+ * @LastEditors: luzhonglai
+ * @LastEditTime: 2022-10-20 01:07:16
+ * @FilePath: \github\evs-ui-test\demo\views\hello.vue
+-->
 <template>
-  div
+
 </template>
 
 <script setup lang="ts">
@@ -39,7 +47,9 @@ const state = reactive({
 
 const { tableData, pagination } = toRefs(state)
 
-onMounted(() => {})
+onMounted(() => {
+  
+})
 </script>
 
 <style lang="less" scoped></style>

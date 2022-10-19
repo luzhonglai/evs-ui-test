@@ -4,7 +4,7 @@
  * @Author: ZhongLai Lu
  * @Date: 2021-05-08 10:41:31
  * @LastEditors: luzhonglai
- * @LastEditTime: 2022-09-24 18:38:41
+ * @LastEditTime: 2022-10-20 01:09:52
 -->
 <template>
   <div class="content">
@@ -28,7 +28,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref, Ref, onBeforeMount } from 'vue'
+import { defineComponent, ref, Ref } from 'vue'
 import { Search, Edit, Check, Message, Star, Delete } from '@element-plus/icons'
 export default defineComponent({
   name: 'RoleList',

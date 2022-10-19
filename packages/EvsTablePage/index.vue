@@ -3,8 +3,8 @@
  * @repository: https://github.com/luzhonglai
  * @Author: ZhongLai Lu
  * @Date: 2021-03-31 17:18:17
- * @LastEditors: Zhonglai Lu
- * @LastEditTime: 2021-11-08 09:35:50
+ * @LastEditors: luzhonglai
+ * @LastEditTime: 2022-10-20 01:15:58
 -->
 
 <template>
@@ -66,7 +66,13 @@ export default defineComponent({
   name: 'EvsTablePage',
   props: {
     data: { type: [Object, Boolean], default: false },
-    pagination: { type: [Object, Boolean], default: false },
+    pagination: {
+      type: [Object, Boolean],
+      default: {
+        currentPage: 1,
+        pageSize: 10,
+      },
+    },
     loading: { type: Boolean, default: false },
     border: { type: Boolean, default: false },
     loadingText: { type: String, default: '数据加载中...' },
